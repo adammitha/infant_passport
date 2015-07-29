@@ -1,6 +1,6 @@
 <% provide(:title, "Dashboard") %>
 <div class="jumbotron">
-  <h1>Pauline's Dashboard</h1>
+  <h1><%= @parent.name %>'s Dashboard</h1>
   <p class="lead">Here you will find your profile along with links to all of the individuals you have registered with Infant Passport and their at-a-glance information. </p>
   <p><a class="btn btn-lg btn-success" href="#" role="button">Edit Profile</a></p>
   <div class="alert alert-info" role="info">
@@ -14,15 +14,15 @@
   <tbody>
     <tr>
       <td>Name</td>
-      <td>Pauline Smith</td>
+      <td><%= @parent.name %></td>
     </tr>
     <tr>
       <td>Email address</td>
-      <td>pauline.smith@example.com</td>
+      <td><%= @parent.email %></td>
     </tr>
     <tr>
       <td>User Since</td>
-      <td>June 15, 2015</td>
+      <td><%= @parent.created_at.strftime("%B %e, %Y") %></td>
     </tr>
   </tbody>
 </table>
