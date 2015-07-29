@@ -68,7 +68,7 @@ class ParentTest < ActiveSupport::TestCase
     assert_not @parent.valid?
   end
 
-  test "passowrd should have a minimum length" do
+  test "password should have a minimum length" do
     @parent.password = @parent.password_confirmation = "a" * 5
     assert_not @parent.valid?
   end
