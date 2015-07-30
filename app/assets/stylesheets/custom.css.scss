@@ -13,25 +13,52 @@ body {
       position: relative;
 }
 
+
+.navbar-static-bottom{
+	margin-bottom: 0px;
+}
+
+.navbar,
+.navbar a{
+	background-color: #FFFFFF;
+	color: #62C300;
+}
+
+.icon-bar {
+	background-color: #62C300;
+}
+
+
+
+/*CSS for timeline page*/
+.fa-pencil, .fa-floppy-o {
+	cursor: pointer;
+	cursor: hand;
+}
+
 ul.nav-pills {
       top: 20px;
       position: fixed;
 }
 
-div.col-sm-9 div {
-      height: 250px;
-      font-size: 28px;
-}
-
-#section1 {color: #fff; background-color: #1E88E5;}
-#section2 {color: #fff; background-color: #673ab7;}
-#section3 {color: #fff; background-color: #ff9800;}
+#section1 {color: #fff; background-color: #FFBB2D;}
+#section2 {color: #fff; background-color: #FFF52D;}
+#section3 {color: #fff; background-color: #8CED2A;}
 
 @media screen and (max-width: 810px) {
     #section1, #section2, #section3, {
         margin-left: 150px;
     }
 }
+
+.scrollspy-section {
+	padding-top: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+/*Featurette CSS for the images on the home page*/
 
 #dashboard-tile{
 	padding-bottom: 40px;

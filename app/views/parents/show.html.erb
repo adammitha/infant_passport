@@ -2,7 +2,10 @@
 <div class="jumbotron">
   <h1><%= @parent.name %>'s Dashboard</h1>
   <p class="lead">Here you will find your profile along with links to all of the individuals you have registered with Infant Passport and their at-a-glance information. </p>
-  <p><a class="btn btn-lg btn-success" href="#" role="button">Edit Profile</a></p>
+  <p>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal">Add Newborn</button>
+  </p>
   <div class="alert alert-info" role="info">
 	   <strong>Stay On Top</strong>
 	    You have 3 recommended tasks
@@ -55,3 +58,78 @@
     </div>
   </div>
 </div>
+
+<!--Modal content-->
+<div id="profileModal" class="modal fade" role="dialogue">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Profile Information</h4>
+				</div>
+				<div class="modal-body">
+					<p>Change your information here.</p>
+					<form class="form-horizontal" role="form">
+						  <div class="form-group">
+							<label class="control-label col-sm-2" for="email">Email:</label>
+							<div class="col-sm-10">
+							  <input type="email" class="form-control" id="email" placeholder="old_address@example.com">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-sm-2" for="pwd">Name:</label>
+							<div class="col-sm-10">
+							  <input type="password" class="form-control" id="pwd" placeholder="Old Name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+							  <button type="submit" class="btn btn-default">Submit</button>
+							</div>
+						  </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="addModal" class="modal fade" role="dialogue">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Infant</h4>
+				</div>
+				<div class="modal-body">
+					<p>Enter your newborn's information here</p>
+					 <form class="form-horizontal" role="form">
+						  <div class="form-group">
+							<label class="control-label col-sm-2" for="email">Name:</label>
+							<div class="col-sm-10">
+							  <input type="email" class="form-control" id="email" placeholder="First_Name Last_Name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-sm-2" for="pwd">Birthdate:</label>
+							<div class="col-sm-10">
+							  <input type="password" class="form-control" id="pwd" placeholder="YYYY/MM/DD">
+							</div>
+						  </div>
+						  <label class="radio-inline"><input type="radio" name="optradio">Male</label>
+					      <label class="radio-inline"><input type="radio" name="optradio">Female</label>
+						  <div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+							  <button type="submit" class="btn btn-default">Submit</button>
+							</div>
+						  </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
