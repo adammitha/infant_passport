@@ -15,6 +15,7 @@ class ParentsSignupTest < ActionDispatch::IntegrationTest
     assert_difference 'Parent.count', 1 do
       post_via_redirect parents_path, parent: { name: "Example Parent", email: "parent@example.com", password: "password", password_confirmation: "password" }
     end
-    assert_template 'users/show'
+    assert_template 'parents/show'
+    assert is_logged_in?
   end
 end

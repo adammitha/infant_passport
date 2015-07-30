@@ -20,11 +20,15 @@
           </ul>
         </li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Dashboard</a></li>
+        <li><%= link_to "Dashboard", current_parent if logged_in? %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<%= signup_path %>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <% if logged_in? %>
+          <li><%= link_to "Settings", '#' %></li>
+          <li><%= link_to "Logout", logout_path, method: "delete" %></li>
+        <% else %>
+          <li><%= link_to "Login", login_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>
