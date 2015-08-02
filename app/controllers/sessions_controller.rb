@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     parent = Parent.find_by(email: params[:session][:email].downcase)
     if parent && parent.authenticate(params[:session][:password])
       log_in parent
+      remember parent
       redirect_to parent
     else
       flash.now[:danger] = 'Invalid email/password combination'
@@ -14,7 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    log_out if logged_in?
     redirect_to root_url
   end
 end
