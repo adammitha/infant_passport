@@ -5,7 +5,7 @@ class ParentTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @parent = Parent.new(name: "Example Parent", email: "parent@example.com", password: "foobar", password_confirmation: "foobar")
+    @parent = Parent.new(first_name: "Example", last_name: "Parent", email: "parent@example.com", password: "foobar", password_confirmation: "foobar")
   end
 
   test "should be valid" do
@@ -13,7 +13,8 @@ class ParentTest < ActiveSupport::TestCase
   end
 
   test "name should be present" do
-    @parent.name = "     "
+    @parent.first_name = "     "
+    @parent.last_name = "     "
     assert_not @parent.valid?
   end
 
@@ -23,7 +24,8 @@ class ParentTest < ActiveSupport::TestCase
   end
 
   test "name should not be too long" do
-    @parent.name = "a" * 51
+    @parent.first_name = "a" * 51
+    @parent.last_name = "b" * 51
     assert_not @parent.valid?
   end
 

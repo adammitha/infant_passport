@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 adam:
-  name: Adam Mitha
+  first_name: Adam
+  last_name: Mitha
   email: adam@example.com
   password_digest: <%= Parent.digest('password') %>

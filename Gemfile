@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 # Use Bootstrap for styling
 gem 'bootstrap-sass', '3.2.0.0'
+# Use font-awesome for male/female symbols
+gem 'font-awesome-sass'
 # Use BCrypt for secure passwords
 gem 'bcrypt', '3.1.7'
 # Use SCSS for stylesheets

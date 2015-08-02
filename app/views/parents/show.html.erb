@@ -1,6 +1,6 @@
 <% provide(:title, "Dashboard") %>
 <div class="jumbotron">
-  <h1><%= @parent.name %>'s Dashboard</h1>
+  <h1><%= @parent.first_name %>'s Dashboard</h1>
   <p class="lead">Here you will find your profile along with links to all of the individuals you have registered with Infant Passport and their at-a-glance information. </p>
   <p>
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
@@ -17,7 +17,7 @@
   <tbody>
     <tr>
       <td>Name</td>
-      <td><%= @parent.name %></td>
+      <td><%= @parent.first_name %> <%= @parent.last_name %></td>
     </tr>
     <tr>
       <td>Email address</td>
