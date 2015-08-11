@@ -1,5 +1,5 @@
 class Parent < ActiveRecord::Base
-  has_many :children
+  has_many :children, dependent: :destroy
   attr_accessor :remember_token
   before_save { email.downcase! }
   validates :first_name, presence: true, length: { maximum: 50 }
