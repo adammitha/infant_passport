@@ -4,7 +4,7 @@ class ChildTest < ActiveSupport::TestCase
 
   def setup
     @parent = parents(:adam)
-    @child = Child.new(first_name: "Luke", last_name: "Skywalker", date_of_birth: DateTime.parse("1995-01-01"), parent_id: @parent.id)
+    @child = @parent.children.build(first_name: "Luke", last_name: "Skywalker", date_of_birth: DateTime.parse("1995-01-01"))
   end
 
   test "should be valid" do
