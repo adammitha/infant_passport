@@ -1,6 +1,6 @@
 class Child < ActiveRecord::Base
   belongs_to :parent
-  default_scope -> { order(:date_of_birth) }
+  default_scope -> { order(date_of_birth: :desc) }
   validates :parent_id, presence: true
   validate :date_of_birth_is_valid
   validates :first_name, presence: true

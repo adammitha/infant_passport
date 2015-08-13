@@ -5,9 +5,11 @@ han:
   last_name: "Solo"
   date_of_birth: <%= 1.year.ago %>
   gender: false
-  
+  parent: adam
+
 leia:
   first_name: "Leia"
   last_name: "Skywalker"
   date_of_birth: <%= 4.months.ago %>
   gender: true
+  parent: adam
