@@ -32,30 +32,7 @@
 
 <div id="page-wrapper">
   <div class="container-fluid" id="dashboard-tile">
-    <div class="col-lg-3 col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-mars fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div>
-                <h1>Michael</h1>
-              </div>
-              <div>16 Months Old</div>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer">
-            <span class="pull-left">View Timeline</span>
-            <span class="pull-right"><i class="fa   fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div>
+    <%= render @children %>
   </div>
 </div>
 
@@ -105,27 +82,26 @@
 				</div>
 				<div class="modal-body">
 					<p>Enter your newborn's information here</p>
-					 <form class="form-horizontal" role="form">
-						  <div class="form-group">
-							<label class="control-label col-sm-2" for="email">Name:</label>
-							<div class="col-sm-10">
-							  <input type="email" class="form-control" id="email" placeholder="First_Name Last_Name">
-							</div>
-						  </div>
-						  <div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Birthdate:</label>
-							<div class="col-sm-10">
-							  <input type="password" class="form-control" id="pwd" placeholder="YYYY/MM/DD">
-							</div>
-						  </div>
-						  <label class="radio-inline"><input type="radio" name="optradio">Male</label>
-					      <label class="radio-inline"><input type="radio" name="optradio">Female</label>
-						  <div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							  <button type="submit" class="btn btn-default">Submit</button>
-							</div>
-						  </div>
-					</form>
+					 <%= form_for(@child) do |f| %>
+            <%= render 'shared/error_messages', object:f.object %>
+
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: "form-control" %>
+
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: "form-control" %>
+
+            <%= f.label :date_of_birth %>
+            <%= date_select :child, :date_of_birth %>
+
+            <%= f.radio_button :gender, false %>
+            <%= label :gender_false, 'Male' %>
+            <%= f.radio_button :gender, true %>
+            <%= label :gender_true, 'Female' %>
+
+            <%= f.submit "Add child", class: "btn btn-default" %>
+          <% end %>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

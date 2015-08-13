@@ -5,6 +5,8 @@ class ParentsController < ApplicationController
 
   def show
     @parent = Parent.find(params[:id])
+    @child = current_parent.children.build
+    @children = @parent.children
   end
 
   def create
