@@ -5,7 +5,7 @@ class ParentTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @parent = Parent.new(first_name: "Example", last_name: "Parent", email: "parent@example.com", password: "foobar", password_confirmation: "foobar")
+    @parent = Parent.new(first_name: "Example", last_name: "Parent", email: "parent@example.com", password: "foobar18", password_confirmation: "foobar18")
   end
 
   test "should be valid" do
