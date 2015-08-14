@@ -94,11 +94,12 @@
             <%= f.label :date_of_birth %>
             <%= date_select :child, :date_of_birth %>
 
-            <%= f.radio_button :gender, false %>
-            <%= label :gender_false, 'Male' %>
-            <%= f.radio_button :gender, true %>
-            <%= label :gender_true, 'Female' %>
-
+            <div style="display:inline">
+              <%= f.radio_button :gender, false %>
+              <%= label :gender_false, 'Male' %>
+              <%= f.radio_button :gender, true %>
+              <%= label :gender_true, 'Female' %>
+            </div>
             <%= f.submit "Add child", class: "btn btn-default" %>
           <% end %>
 

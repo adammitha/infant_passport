@@ -53,6 +53,7 @@ group :test do
   gem 'mini_backtrace'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'rake'
 end
 
 group :production do
