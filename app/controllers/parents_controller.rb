@@ -1,4 +1,6 @@
 class ParentsController < ApplicationController
+  before_action :logged_in_parent, only: [:show]
+
   def new
     @parent = Parent.new
   end
@@ -10,7 +12,7 @@ class ParentsController < ApplicationController
   end
 
   def create
-    @parent = Parent.new(user_params)
+    @parent = Parent.new(parent_params)
     if @parent.save
       log_in @parent
       flash[:success] = "Welcome to the Infant Passport!"
@@ -21,7 +23,15 @@ class ParentsController < ApplicationController
   end
 
   private
-    def user_params
+    def parent_params
       params.require(:parent).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    end
+
+    # Confirms a logged-in parent
+    def logged_in_parent
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 end
