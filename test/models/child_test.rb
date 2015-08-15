@@ -16,6 +16,19 @@ class ChildTest < ActiveSupport::TestCase
     assert_not @child.valid?
   end
 
+  test "name should be present" do
+    @child.first_name = nil
+    assert_not @child.valid?
+    @child.first_name = "Luke"
+    @child.last_name = nil
+    assert_not @child.valid?
+  end
+
+  test "gender should be present" do
+    @child.gender = nil
+    assert_not @child.valid?
+  end
+
   test "date of birth must be today or earlier" do
     @child.date_of_birth = Date.today + 1
     assert_not @child.valid?
