@@ -5,6 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Parent.create(first_name: "Adam", last_name: "Mitha", email: "adam@example.com", password: "foobar18", password_confirmation: "foobar18")
+Parent.create(first_name: "Adam", last_name: "Mitha", email: "adam@example.com", password: "foobar18", password_confirmation: "foobar18", activated: true, activated_at: Time.zone.now)
 parent = Parent.first
 parent.children.create!(first_name: "Han", last_name: "Solo", date_of_birth: 1.year.ago, gender: false)

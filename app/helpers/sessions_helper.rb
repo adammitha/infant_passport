@@ -23,7 +23,7 @@ module SessionsHelper
       @current_parent ||= Parent.find_by(id: session[:parent_id])
     elsif (parent_id = cookies.signed[:parent_id])
       parent = Parent.find_by(id: parent_id)
-      if parent && parent.authenticated?(cookies[:remember_token])
+      if parent && parent.authenticated?(:remember, cookies[:remember_token])
         log_in parent
         @current_parent = parent
       end

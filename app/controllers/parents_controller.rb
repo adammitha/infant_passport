@@ -15,9 +15,9 @@ class ParentsController < ApplicationController
   def create
     @parent = Parent.new(parent_params)
     if @parent.save
-      log_in @parent
-      flash[:success] = "Welcome to the Infant Passport!"
-      redirect_to @parent
+      @parent.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end

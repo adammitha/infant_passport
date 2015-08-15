@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :parents
 
+  resources :account_activations, only: [:edit]
+
   resources :children, only: [:create, :update, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
