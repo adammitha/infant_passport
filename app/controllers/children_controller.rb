@@ -1,5 +1,5 @@
 class ChildrenController < ApplicationController
-before_action :logged_in_parent, only: [:create, :destroy]
+before_action :logged_in_parent, only: [:create, :edit, :update, :destroy]
 
 def create
   @child = current_parent.children.build(child_params)

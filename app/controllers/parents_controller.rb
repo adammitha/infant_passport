@@ -22,6 +22,13 @@ class ParentsController < ApplicationController
     end
   end
 
+  def edit
+    @parent = Parent.find(params[:id])
+  end
+
+  def update
+  end
+
   private
     def parent_params
       params.require(:parent).permit(:first_name, :last_name, :email, :password, :password_confirmation)
