@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ChildrenControllerTest < ActionController::TestCase
   def setup
-    @child = children(:han)
+    @parent = parents(:adam)
   end
 
   test "should redirect create when not logged in" do

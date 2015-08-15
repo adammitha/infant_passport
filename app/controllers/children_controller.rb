@@ -19,4 +19,11 @@ private
   def child_params
     params.require(:child).permit(:first_name, :last_name, :date_of_birth, :gender)
   end
+
+  def logged_in_parent
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
 end
