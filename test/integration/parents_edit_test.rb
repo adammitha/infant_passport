@@ -6,15 +6,17 @@ class ParentsEditTest < ActionDispatch::IntegrationTest
   end
 
   test "unsuccessful edit" do
+    log_in_as(@parent)
     get edit_parent_path(@parent)
     assert_template 'parents/edit'
     patch parent_path(@parent), parent: { name: "", email: "foo@invalid", password: "foo", password_confirmation: "bar" }
     assert_template 'parents/edit'
   end
 
-  test "successful edit" do
+  test "successful edit with friendly forwarding" do
     get edit_parent_path(@parent)
-    assert_template 'parents/edit'
+    log_in_as(@parent)
+    assert_redirected_to edit_parent_path(@parent)
     first_name = "Foo"
     last_name = "Bar"
     email = "foo@bar.com"

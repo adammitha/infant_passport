@@ -4,3 +4,9 @@ adam:
   last_name: Mitha
   email: adam@example.com
   password_digest: <%= Parent.digest('password') %>
+
+anakin:
+  first_name: Anakin
+  last_name: Skywalker
+  email: anakin@jedi.com
+  password_digest: <%= Parent.digest('password') %>
