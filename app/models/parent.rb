@@ -1,6 +1,6 @@
 class Parent < ActiveRecord::Base
   has_many :children, dependent: :destroy
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
   validates :first_name, presence: true, length: { maximum: 50 }
@@ -49,6 +49,23 @@ class Parent < ActiveRecord::Base
   # Sends activation email.
   def send_activation_email
     ParentMailer.account_activation(self).deliver_now
+  end
+
+  # Sets the password reset attributes
+  def create_reset_digest
+    self.reset_token = Parent.new_token
+    update_attribute(:reset_digest, Parent.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  # Send password reset email
+  def send_password_reset_email
+    ParentMailer.password_reset(self).deliver_now
+  end
+
+  # Returns true if a password reset has expired
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private

@@ -15,9 +15,8 @@ class ParentMailer < ApplicationMailer
   #
   #   en.parent_mailer.password_reset.subject
   #
-  def password_reset
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+  def password_reset(parent)
+    @parent = parent
+    mail to: parent.email, subject: "Password reset"
   end
 end
