@@ -7,6 +7,8 @@ gem 'rails', '4.2.1'
 gem 'bootstrap-sass', '3.2.0.0'
 # Use font-awesome for male/female symbols
 gem 'font-awesome-sass'
+# Use bootstrap-datepicker for date picker in add child form
+gem 'bootstrap-datepicker-rails'
 # Use BCrypt for secure passwords
 gem 'bcrypt', '3.1.7'
 # Use SCSS for stylesheets

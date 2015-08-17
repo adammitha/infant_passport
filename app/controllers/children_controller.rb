@@ -17,6 +17,7 @@ end
 private
 
   def child_params
+    params[:child][:date_of_birth] = Time.strptime(params[:child][:date_of_birth],"%m/%d/%Y")
     params.require(:child).permit(:first_name, :last_name, :date_of_birth, :gender)
   end
 
