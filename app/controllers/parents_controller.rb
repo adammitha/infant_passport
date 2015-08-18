@@ -1,6 +1,6 @@
 class ParentsController < ApplicationController
-  before_action :logged_in_parent, only: [:show, :edit, :update]
-  before_action :correct_parent, only: [:show, :edit, :update]
+  before_action :logged_in_parent, only: [:show, :edit, :update, :destroy]
+  before_action :correct_parent, only: [:show, :edit, :update, :destroy]
 
   def new
     @parent = Parent.new
@@ -35,6 +35,13 @@ class ParentsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    log_out
+    Parent.find(params[:id]).destroy
+    flash[:success] = "Account deleted"
+    redirect_to root_url
   end
 
   private

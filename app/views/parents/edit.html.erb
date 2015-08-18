@@ -23,5 +23,27 @@
 
       <%= f.submit "Save changes", class: "btn btn-default" %>
     <% end %>
+    <hr class="featurette-divider">
+    <button type="button" class="btn btn-danger form-control" data-toggle="modal" data-target="#deleteModal">Delete Account</button>
+
+    <!--Modal content-->
+    <div id="deleteModal" class="modal fade" role="dialogue">
+  		<div class="modal-dialog">
+  			<div class="modal-content">
+  				<div class="modal-header bg-danger">
+  					<button type="button" class="close" data-dismiss="modal">&times;</button>
+  					<h4 class="modal-title">Delete Account</h4>
+  				</div>
+  				<div class="modal-body">
+  					<p>Are you sure you want to delete your account? This change is irreversible.</p>
+  					<%= link_to raw("<button type='button' class='btn btn-danger'>Delete</button>"), @parent, method: :delete %>
+  				</div>
+  				<div class="modal-footer">
+  					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+
   </div>
 </div>

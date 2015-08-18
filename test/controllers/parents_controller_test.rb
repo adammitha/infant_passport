@@ -24,6 +24,12 @@ class ParentsControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
+  test "should redirect delete when not logged in" do
+    delete :destroy, id: @parent
+    assert_not flash.empty?
+    assert_redirected_to login_url
+  end
+
   test "should redirect show when logged in as wrong user" do
     log_in_as(@other_parent)
     get :show, id: @parent
@@ -41,6 +47,13 @@ class ParentsControllerTest < ActionController::TestCase
   test "should redirect update when logged in as wrong user" do
     log_in_as(@other_parent)
     patch :update, id: @parent, parent: { first_name: @parent.first_name, last_name: @parent.last_name, email: @parent.email }
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  test "should redirect delete when logged in as wrong user" do
+    log_in_as(@other_parent)
+    delete :destroy, id: @parent
     assert flash.empty?
     assert_redirected_to root_url
   end
