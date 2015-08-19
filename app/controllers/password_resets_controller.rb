@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
     if @parent
       @parent.create_reset_digest
       @parent.send_password_reset_email
-      flash[:info] = "Email sent with password reset instructions"
+      flash[:info] = "Email sent with password reset instructions. The message should arrive within 15 minutes."
       redirect_to root_url
     else
       flash.now[:danger] = "Email address not found"

@@ -16,7 +16,7 @@ class ParentsController < ApplicationController
     @parent = Parent.new(parent_params)
     if @parent.save
       @parent.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      flash[:info] = "Please check your email to activate your account. The message should arrive within the next 15 minutes."
       redirect_to root_url
     else
       render 'new'
