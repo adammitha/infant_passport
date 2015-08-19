@@ -6,6 +6,7 @@ adam:
   password_digest: <%= Parent.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  admin: false
 
 anakin:
   first_name: Anakin
@@ -14,3 +15,13 @@ anakin:
   password_digest: <%= Parent.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  admin: false
+
+obiwan:
+  first_name: Obi Wan
+  last_name: Kenobi
+  email: obiwan@jedi.com
+  password_digest: <%= Parent.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  admin: true

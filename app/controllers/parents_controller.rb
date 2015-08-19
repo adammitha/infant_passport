@@ -8,8 +8,14 @@ class ParentsController < ApplicationController
 
   def show
     @parent = Parent.find(params[:id])
-    @child = current_parent.children.build
-    @children = @parent.children
+    if @parent.admin?
+      @parents = Parent.where(admin: false).paginate(page: params[:page])
+      render 'show_admin'
+    else
+      @child = current_parent.children.build
+      @children = @parent.children
+      render 'show'
+    end
   end
 
   def create

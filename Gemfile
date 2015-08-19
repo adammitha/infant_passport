@@ -9,8 +9,14 @@ gem 'bootstrap-sass', '3.2.0.0'
 gem 'font-awesome-sass'
 # Use bootstrap-datepicker for date picker in add child form
 gem 'bootstrap-datepicker-rails'
+# Use will_paginate to paginate users index
+gem 'will_paginate', '3.0.7'
+# Use bootstrap-will_paginate to style pagination
+gem 'bootstrap-will_paginate', '0.0.10'
 # Use BCrypt for secure passwords
 gem 'bcrypt', '3.1.7'
+# Use faker to create test users
+gem 'faker', '1.4.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
