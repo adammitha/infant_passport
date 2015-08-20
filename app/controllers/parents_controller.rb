@@ -1,6 +1,7 @@
 class ParentsController < ApplicationController
   before_action :logged_in_parent, only: [:show, :edit, :update, :destroy]
-  before_action :correct_parent, only: [:show, :edit, :update, :destroy]
+  before_action :correct_parent, only: [:show, :edit, :update]
+  before_action :correct_parent_or_admin, only: [:destroy]
 
   def new
     @parent = Parent.new
@@ -44,10 +45,17 @@ class ParentsController < ApplicationController
   end
 
   def destroy
-    log_out
-    Parent.find(params[:id]).destroy
-    flash[:success] = "Account deleted"
-    redirect_to root_url
+    if current_parent.admin?
+      name = "#{Parent.find(params[:id]).first_name} #{Parent.find(params[:id]).last_name}"
+      Parent.find(params[:id]).destroy
+      flash[:success] = "#{name}'s account has been deleted"
+      redirect_to current_parent
+    else
+      log_out
+      Parent.find(params[:id]).destroy
+      flash[:success] = "Account deleted"
+      redirect_to root_url
+    end
   end
 
   private
@@ -64,9 +72,17 @@ class ParentsController < ApplicationController
       end
     end
 
-    # Confirms the correct user.
+    # Confirms the correct parent.
     def correct_parent
       @parent = Parent.find(params[:id])
       redirect_to(root_url) unless current_parent?(@parent)
+    end
+
+    # Before action for destroy
+    def correct_parent_or_admin
+      unless current_parent.admin?
+        @parent = Parent.find(params[:id])
+        redirect_to(root_url) unless current_parent?(@parent)
+      end
     end
 end

@@ -23,8 +23,10 @@
 
       <%= f.submit "Save changes", class: "btn btn-default" %>
     <% end %>
-    <hr class="featurette-divider">
-    <button type="button" class="btn btn-danger form-control" data-toggle="modal" data-target="#deleteModal">Delete Account</button>
+    <br /><br />
+    <% unless current_parent.admin? %>
+      <button type="button" class="btn btn-danger form-control" data-toggle="modal" data-target="#deleteModal">Delete Account</button>
+    <% end %>
 
     <!--Modal content-->
     <div id="deleteModal" class="modal fade" role="dialogue">

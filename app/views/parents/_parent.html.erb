@@ -1,6 +1,6 @@
 <tr>
   <td><%= parent.first_name %> <%= parent.last_name %></td>
   <td>Number of children: <%= parent.children.count %></td>
-  <td><a href="#">Delete</a></td>
+  <td><%= link_to "Delete", parent, method: :delete %></td>
   <td><a href="#">Suspend</a></td>
 </tr>
