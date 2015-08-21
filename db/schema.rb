@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819195006) do
+ActiveRecord::Schema.define(version: 20150820184327) do
 
   create_table "children", force: :cascade do |t|
     t.text     "first_name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150819195006) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean  "admin",             default: false
+    t.boolean  "suspended",         default: false
   end
 
   add_index "parents", ["email"], name: "index_parents_on_email", unique: true

@@ -1,6 +1,25 @@
 <tr>
   <td><%= parent.first_name %> <%= parent.last_name %></td>
   <td>Number of children: <%= parent.children.count %></td>
-  <td><%= link_to "Delete", parent, method: :delete %></td>
-  <td><a href="#">Suspend</a></td>
+  <td><button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal-<%= parent.id %>">Delete</delete></td>
+  <td><%= link_to raw("<button type='button' class='btn btn-warning btn-xs'>Suspend</button>"), "#" %></td>
 </tr>
+
+<!--Modal content-->
+<div id="deleteModal-<%= parent.id %>" class="modal fade" role="dialogue">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete Account</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete your account? This change is irreversible.</p>
+        <%= link_to raw("<button type='button' class='btn btn-danger'>Delete</button>"), parent, method: :delete %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

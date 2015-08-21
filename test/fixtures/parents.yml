@@ -7,6 +7,7 @@ adam:
   activated: true
   activated_at: <%= Time.zone.now %>
   admin: false
+  suspended: false
 
 anakin:
   first_name: Anakin
@@ -16,6 +17,7 @@ anakin:
   activated: true
   activated_at: <%= Time.zone.now %>
   admin: false
+  suspended: false
 
 obiwan:
   first_name: Obi Wan
@@ -25,3 +27,4 @@ obiwan:
   activated: true
   activated_at: <%= Time.zone.now %>
   admin: true
+  suspended: false

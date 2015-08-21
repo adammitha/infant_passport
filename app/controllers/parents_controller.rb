@@ -85,4 +85,9 @@ class ParentsController < ApplicationController
         redirect_to(root_url) unless current_parent?(@parent)
       end
     end
+
+    # Confirms admin user
+    def admin_user
+      redirect_to(root_url) unless current_parent.admin?
+    end
 end
