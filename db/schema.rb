@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820184327) do
+ActiveRecord::Schema.define(version: 20150821203159) do
 
   create_table "children", force: :cascade do |t|
     t.text     "first_name"
@@ -44,5 +44,13 @@ ActiveRecord::Schema.define(version: 20150820184327) do
   end
 
   add_index "parents", ["email"], name: "index_parents_on_email", unique: true
+
+  create_table "timelines", force: :cascade do |t|
+    t.integer  "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "timelines", ["child_id"], name: "index_timelines_on_child_id"
 
 end
