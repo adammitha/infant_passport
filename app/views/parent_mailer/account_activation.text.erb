@@ -1,0 +1,5 @@
+Hi <%= @parent.first_name %>,
+
+Welcome to the Infant Passport! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@parent.activation_token, email: @parent.email) %>

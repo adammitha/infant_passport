@@ -5,7 +5,7 @@ class ParentTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @parent = Parent.new(first_name: "Example", last_name: "Parent", email: "parent@example.com", password: "foobar", password_confirmation: "foobar")
+    @parent = Parent.new(first_name: "Example", last_name: "Parent", email: "parent@example.com", password: "foobar18", password_confirmation: "foobar18")
   end
 
   test "should be valid" do
@@ -76,6 +76,6 @@ class ParentTest < ActiveSupport::TestCase
   end
 
   test "authenticated? should return false for a user with nil digest" do
-    assert_not @parent.authenticated?('')
+    assert_not @parent.authenticated?(:remember, '')
   end
 end

@@ -7,8 +7,16 @@ gem 'rails', '4.2.1'
 gem 'bootstrap-sass', '3.2.0.0'
 # Use font-awesome for male/female symbols
 gem 'font-awesome-sass'
+# Use bootstrap-datepicker for date picker in add child form
+gem 'bootstrap-datepicker-rails'
+# Use will_paginate to paginate users index
+gem 'will_paginate', '3.0.7'
+# Use bootstrap-will_paginate to style pagination
+gem 'bootstrap-will_paginate', '0.0.10'
 # Use BCrypt for secure passwords
-gem 'bcrypt', '3.1.7'
+gem 'bcrypt', '3.1.9'
+# Use faker to create test users
+gem 'faker', '1.4.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -28,7 +36,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# gem 'bcrypt', '~> 3.1.9'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -45,9 +53,8 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  
-  #Something fucked in Windows
+  gem 'spring'  
+  # Time zone data
   gem 'tzinfo-data'
 end
 
@@ -56,6 +63,7 @@ group :test do
   gem 'mini_backtrace'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'rake'
 end
 
 group :production do

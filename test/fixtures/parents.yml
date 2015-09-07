@@ -4,3 +4,27 @@ adam:
   last_name: Mitha
   email: adam@example.com
   password_digest: <%= Parent.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  admin: false
+  suspended: false
+
+anakin:
+  first_name: Anakin
+  last_name: Skywalker
+  email: anakin@jedi.com
+  password_digest: <%= Parent.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  admin: false
+  suspended: false
+
+obiwan:
+  first_name: Obi Wan
+  last_name: Kenobi
+  email: obiwan@jedi.com
+  password_digest: <%= Parent.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  admin: true
+  suspended: false

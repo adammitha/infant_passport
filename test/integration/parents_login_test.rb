@@ -4,6 +4,7 @@ class ParentsLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     @parent = parents(:adam)
+    @admin_parent = parents(:obiwan)
   end
 
   test "login with invalid information" do
@@ -35,6 +36,15 @@ class ParentsLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
     assert_select "a[href=?]", parent_path(@parent), count: 0
+  end
+
+  test "admin login" do
+    get login_path
+    post login_path, session: { email: @admin_parent.email, password: 'password' }
+    assert is_logged_in?
+    assert_redirected_to @admin_parent
+    follow_redirect!
+    assert_template 'parents/show_admin'
   end
 
   test "login with remembering" do
