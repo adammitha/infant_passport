@@ -56,6 +56,9 @@ group :development, :test do
   gem 'spring'  
   # Time zone data
   gem 'tzinfo-data'
+  
+  # Fixing javascript tagging issue
+  gem 'coffee-script-source','1.8.0'
 end
 
 group :test do
