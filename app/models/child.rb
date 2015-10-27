@@ -9,14 +9,14 @@ class Child < ActiveRecord::Base
   validates :last_name, presence: true
   validates :gender, :inclusion => { :in => [true, false] }
 
-  def date_of_birth_is_valid
-    errors.add(:date_of_birth, 'date of birth must be today or earlier') if date_of_birth > Date.today
-  end
-
   private
 
     # Creates timeline for child when child is added
     def create_timeline
       self.build_timeline
+    end
+
+    def date_of_birth_is_valid
+      errors.add(:date_of_birth, 'date of birth must be today or earlier') if date_of_birth > Date.today
     end
 end

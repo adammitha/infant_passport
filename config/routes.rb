@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'vaccinations/create'
+
+  get 'vaccinations/update'
+
+  get 'vaccinations/destroy'
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
