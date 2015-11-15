@@ -62,6 +62,11 @@ function saveVacc(element,nameID){
 	element.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + vaccName + '</td> \
 																				<td>' + Math.round(vaccAge) + ' Months </td> \
 																				<td>' + vaccDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
+	var bt = document.createElement("tr");
+	bt.innerHTML = 	'<td colspan="3"> \
+						<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
+					</td>';
+	document.getElementById("vaccineBody").appendChild(bt);
 	vaccineChanges.push([vaccName,vaccDate]);
    }
 	
@@ -107,6 +112,11 @@ function saveAllergy(element,allergenID,severityID){
 	element.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + allergyName + '</td> \
 																				<td>' + allergySeverity + '</td> \
 																				<td>' + allergyDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
+	var bt = document.createElement("tr");
+	bt.innerHTML = 	'<td colspan="3"> \
+						<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
+					</td>';
+	document.getElementById("allergyBody").appendChild(bt);
 	allergyChanges.push([allergyName,allergySeverity,allergyDate]);
    }
   
