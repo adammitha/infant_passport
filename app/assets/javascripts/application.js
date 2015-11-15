@@ -17,13 +17,15 @@
 //= require turbolinks
 //= require_tree .
 var developmentChanges = [];
+var feedingChanges = [];
 var vaccineChanges = [];
 var allergyChanges = [];
 var birthdate = new Date("03/25/1995");
+var editted = false;
 
 function editFunc(element,devnum){
 	element.parentElement.innerHTML = '<span class="input-group"> \
-											<input type="text" size="10" class="input-sm form-control pull-left" value="mm/dd/yyyy" /> \
+											<input type="text" size="10" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyy" /> \
 											<span class="input-group-addon"> \
 												<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 											</span> \
@@ -35,19 +37,28 @@ function saveFunc(element,devnum){
 	element.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months"
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
 																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';															
-	developmentChanges.push([devnum,eventDate]);
+	if (devnum.slice(0,2) == "dev") {
+	developmentChanges.push([devnum,eventDate.toISOString()]);
+	} else if (devnum.slice(0,2) == "fed") {
+	feedingChanges.push([devnum,eventDate.toISOString()]);
+	} else {
+	vaccineChanges.push([devnum,eventDate.toISOString()]);
+	}
+	if (editted == false){
+		changeSaveButton();
+	}
 	}
 	
 function addVacc(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
-															<input id="nameElement" type="text" size="10" class="input-sm form-control pull-left" value="Vaccine Name" /> \
+															<input id="nameElement" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="Vaccine"/> \
 														</span> \
 													</td> \
 													<td> Let us handle the math </td> \
 													<td> \
 														<span class="input-group"> \
-															<input type="text" size="10" class="input-sm form-control pull-left" value="mm/dd/yyyy" /> \
+															<input type="text" size="10" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyy"/> \
 															<span class="input-group-addon"> \
 																<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'nameElement'" + ')"></span> \
 															</span> \
@@ -61,64 +72,90 @@ function saveVacc(element,nameID){
 	var vaccAge = (vaccDate - birthdate)/2629929600;
 	element.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + vaccName + '</td> \
 																				<td>' + Math.round(vaccAge) + ' Months </td> \
-																				<td>' + vaccDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
+																				<td>' + vaccDate.toDateString().slice(4) + '<i id="vac' + vaccName + '" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
 	var bt = document.createElement("tr");
 	bt.innerHTML = 	'<td colspan="3"> \
 						<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
 					</td>';
 	document.getElementById("vaccineBody").appendChild(bt);
-	vaccineChanges.push([vaccName,vaccDate]);
+	vaccineChanges.push([vaccName,vaccDate.toISOString()]);
+	if (editted == false){
+		changeSaveButton();
+	}
    }
 	
 function addAllergy(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
-															<input id="allergenElement" type="text" size="10" class="input-sm form-control pull-left" value="Allergen" /> \
+															<input id="allergenElement" type="text" size="10" class="input-sm form-control pull-left" value="" placeholder="Allergen"/> \
+															<span class="input-group-addon"> \
+																<span class="fa fa-floppy-o" onclick="saveAllergy(this,' + "'allergenElement','sel1'" + ')"></span> \
+															</span> \
 														</span> \
 													</td> \
 													<td> \
-														<span class="input-group"> \
-															<label for="sel1">Select Severity:</label> \
-															  <select class="form-control" id="sel1"> \
+														<form class="form-inline"> \
+															  <select class="form-control input-sm" id="sel1"> \
 																<option>Mild</option> \
 																<option>Moderate</option> \
 																<option>Severe</option> \
 																<option>Unknown</option> \
 															  </select> \
 														</span> \
-													<td> \
-														<span class="input-group"> \
-															<input type="text" size="10" class="input-sm form-control pull-left" value="mm/dd/yyyy" /> \
-															<span class="input-group-addon"> \
-																<span class="fa fa-floppy-o" onclick="saveAllergy(this,' + "'allergenElement','sel1'" + ')"></span> \
-															</span> \
-														</span> \
 													</td>';
 	}
 
 function saveAllergy(element,allergenID,severityID){
-	var allergyName = String(document.getElementById(allergenID).value);
-	var allergySeverity = document.getElementById(severityID).selectedIndex;
-	var allergyDate = new Date(element.parentElement.previousElementSibling.value);
-	if (allergySeverity == 0){
+	var allergyName = "";
+	var allergySeverityIndex = document.getElementById(severityID).selectedIndex;
+	var allergySeverity = "Unknown";
+	if (allergenID == "allergenElement") {
+		allergyName = String(document.getElementById(allergenID).value);		
+	} else {
+		allergyName = allergenID;
+	}
+	if (allergySeverityIndex == 0){
 		allergySeverity = "Mild";
-	} else if (allergySeverity == 1) {
+	} else if (allergySeverityIndex == 1) {
 		allergySeverity = "Moderate";
-	} else if (allergySeverity == 2) {
+	} else if (allergySeverityIndex == 2) {
 		allergySeverity = "Severe";
 	} else {
 		allergySeverity = "Unknown";
 	};
-	element.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + allergyName + '</td> \
-																				<td>' + allergySeverity + '</td> \
-																				<td>' + allergyDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
-	var bt = document.createElement("tr");
-	bt.innerHTML = 	'<td colspan="3"> \
-						<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
-					</td>';
-	document.getElementById("allergyBody").appendChild(bt);
-	allergyChanges.push([allergyName,allergySeverity,allergyDate]);
-   }
-  
+	document.getElementById(severityID).parentElement.parentElement.parentElement.innerHTML = '<td>' + allergyName + '</td> \
+																							   <td>' + allergySeverity + '<i id="' + allergyName + '" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i></td>';
+	if (allergenID == "allergenElement"){
+		var bt = document.createElement("tr");
+		bt.innerHTML = 	'<td colspan="3"> \
+							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
+						</td>';
+		document.getElementById("allergyBody").appendChild(bt);
+	}
+	allergyChanges.push([allergyName,allergySeverityIndex]);
+	if (editted == false){
+		changeSaveButton();
+	}
+}
+
+function editAllergy(element,allergenID){
+	element.parentElement.innerHTML = 	'<span class="input-group"> \
+											  <span class="input-group-addon"> \
+													<span class="fa fa-floppy-o" onclick="saveAllergy(this,' + "'" + allergenID + "'" + ",'sel2'" + ')"></span> \
+											  </span> \
+											  <select class="form-control input-sm" id="sel2"> \
+												<option>Mild</option> \
+												<option>Moderate</option> \
+												<option>Severe</option> \
+												<option>Unknown</option> \
+											  </select> \
+										</span> '
+}  
+
+function changeSaveButton(){
+	document.getElementById("saveChangesButton").className = "btn btn-info active";
+	editted = true;
+}
+
 function savePage(){
 }
