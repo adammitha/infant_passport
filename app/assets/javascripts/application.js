@@ -20,6 +20,7 @@ var developmentChanges = [];
 var vaccineChanges = [];
 var allergyChanges = [];
 var birthdate = new Date("03/25/1995");
+var changes = {'development':developmentChanges,'vaccine':vaccineChanges,'allergy':allergyChanges};
 
 function editFunc(element,devnum){
 	element.parentElement.innerHTML = '<span class="input-group"> \
@@ -34,10 +35,11 @@ function saveFunc(element,devnum){
 	var eventAge = (eventDate-birthdate)/2629929600;
 	element.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months"
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
-																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';															
+																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
 	developmentChanges.push([devnum,eventDate]);
+	$("#formData").val(JSON.stringify(changes));
 	}
-	
+
 function addVacc(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
@@ -54,7 +56,7 @@ function addVacc(element){
 														</span> \
 													</td>';
 	}
-	
+
 function saveVacc(element,nameID){
 	var vaccName = String(document.getElementById(nameID).value);
 	var vaccDate = new Date(element.parentElement.previousElementSibling.value);
@@ -68,8 +70,9 @@ function saveVacc(element,nameID){
 					</td>';
 	document.getElementById("vaccineBody").appendChild(bt);
 	vaccineChanges.push([vaccName,vaccDate]);
+	$("#formData").val(JSON.stringify(changes));
    }
-	
+
 function addAllergy(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
@@ -118,7 +121,8 @@ function saveAllergy(element,allergenID,severityID){
 					</td>';
 	document.getElementById("allergyBody").appendChild(bt);
 	allergyChanges.push([allergyName,allergySeverity,allergyDate]);
+	$("#formData").val(JSON.stringify(changes));
    }
-  
+
 function savePage(){
 }

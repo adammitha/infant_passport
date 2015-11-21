@@ -1,13 +1,15 @@
 <% provide(:title, "Timeline") %>
 <% provide(:extra_body_shit, raw(" data-spy='scroll' data-target='#myScrollspy' data-offset='0'")) %>
-<div class="container">
 	  <div class="row">
 		<nav class="col-sm-3" id="myScrollspy">
 		  <ul class="nav nav-pills nav-stacked" style="padding-top:80px;">
 			<li class="active"><a href="#section1">Growth and Development</a></li>
 			<li><a href="#section2">Feeding and Nutrition</a></li>
 			<li><a href="#section3">Vaccinations</a></li>
-			<button type="button" class="btn btn-info" onclick="savePage()">Save Changes</button>
+			<%= form_tag("/timelines/#{params[:id]}", method: "put", id: "saveForm") do %>
+				<%= hidden_field_tag(:formData, "test2") %>
+				<%= submit_tag("Save Changes", class: "btn btn-info") %>
+			<% end %>
 		  </ul>
 		</nav>
 		<div class="col-sm-9">
@@ -266,7 +268,7 @@
 					  </tr>
 					</tbody>
 				  </table>
-				  <h4 class="text-right">Month 2</h4>
+				  <h4 class="text-right">Month 12</h4>
 				  <table class="table">
 					<thead>
 					  <tr>
@@ -377,7 +379,7 @@
 					  </tr>
 					  <tr>
 						<td>Communication</td>
-						<td>Responds to sound of parents</td>
+						<td>Shows something with words and actions</td>
 						<td>3 Weeks</td>
 						<td>23 August, 2015<i id="dev15.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
 					  </tr>
@@ -431,9 +433,8 @@
 					  </tr>
 					</tbody>
 				  </table>
-				<h3>Year 2</h3>
-				<h4 class="text-right">Month 12</h4>
-				<table class="table">
+				  <h4 class="text-right">Month 18</h4>
+				  <table class="table">
 					<thead>
 					  <tr>
 						<th>Category</th>
@@ -445,7 +446,7 @@
 					<tbody>
 					  <tr>
 						<td>Communication</td>
-						<td>Responds to sound of parents</td>
+						<td>Responds to simple questions</td>
 						<td>3 Weeks</td>
 						<td>23 August, 2015<i id="dev18.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
 					  </tr>
@@ -493,7 +494,7 @@
 					  </tr>
 					</tbody>
 				  </table>
-				  <h4 class="text-right">Month 13</h4>
+				  <h4 class="text-right">Month 24</h4>
 				  <table class="table">
 					<thead>
 					  <tr>
@@ -506,13 +507,13 @@
 					<tbody>
 					  <tr>
 						<td>Communication</td>
-						<td>Responds to sound of parents</td>
+						<td>Uses pronouns</td>
 						<td>3 Weeks</td>
 						<td>23 August, 2015<i id="dev24.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
 					  </tr>
 					  <tr>
 						<td>Communication</td>
-						<td>Responds to sound of parents</td>
+						<td>Uses short phrases</td>
 						<td>3 Weeks</td>
 						<td>23 August, 2015<i id="dev24.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i><td>
 					  </tr>
@@ -657,4 +658,3 @@
 			  </div>
 		</div>
 	  </div>
-	</div>

@@ -4,6 +4,10 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find(params[:id])
   end
 
+  def update
+    render :json => params[:formData]
+  end
+
   def destroy
   end
 
