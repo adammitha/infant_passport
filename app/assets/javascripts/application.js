@@ -39,7 +39,7 @@ function editFunc(element,devnum){
 	} else {
 		element.parentElement.innerHTML = '<span class="form-inline"> \
 												<span class="input-group"> \
-													<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" /> \
+													<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyyy" data-provide="datepicker" /> \
 													<span class="input-group-addon"> \
 														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 													</span> \
@@ -51,7 +51,7 @@ function editFunc(element,devnum){
 function saveFunc(element,devnum){
 	var eventDate = new Date(String(element.parentElement.previousElementSibling.value));
 	var eventAge = (eventDate-birthdate)/2629929600;
-	element.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months"
+	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months"
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
 																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
 	if (devnum.slice(0,2) == "dev") {
@@ -75,7 +75,7 @@ function addVacc(element){
 													<td> Let us handle the math </td> \
 													<td> \
 														<span class="input-group"> \
-															<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY"/> \
+															<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyyy" data-provide="datepicker"/> \
 															<span class="input-group-addon"> \
 																<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'nameElement'" + ')"></span> \
 															</span> \
