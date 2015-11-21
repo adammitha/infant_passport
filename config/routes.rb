@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'charts/show'
+
+  get 'charts/update'
+
   get 'vaccinations/create'
 
   get 'vaccinations/update'
