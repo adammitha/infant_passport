@@ -3,7 +3,7 @@
 	  <div class="row">
 		<nav class="col-sm-3" id="myScrollspy">
 		  <ul class="nav nav-pills nav-stacked" style="padding-top:80px;">
-			<h2>George's Timeline</h2>
+			<h2><%= @timeline.child.first_name %>'s Timeline</h2>
 			<li class="active"><a href="#section1">Vaccinations</a></li>
 			<li><a href="#section2">Feeding and Nutrition</a></li>
 			<li><a href="#section3">Growth and Development</a></li>
@@ -25,11 +25,7 @@
 					  </tr>
 					</thead>
 					<tbody id="vaccineBody">
-					  <tr>
-						<td>Diptheria</td>
-						<td>Older</td>
-						<td>Aug 23 2015<i id="vacDiptheria" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+					  <%= render @vaccinations %>
 					  <tr>
 						<td colspan="3">
 							<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button>
@@ -49,14 +45,7 @@
 					  </tr>
 					</thead>
 					<tbody id="allergyBody">
-					  <tr>
-						<td>Peanuts</td>
-						<td>Mild <i id="Peanuts" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Kiwi</td>
-						<td>Unknown <i id="Kiwi" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i></td>
-					  </tr>
+					  <%= render @allergies %>
 					  <tr>
 						<td colspan="3">
 							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button>

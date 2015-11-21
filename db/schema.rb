@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027165850) do
+ActiveRecord::Schema.define(version: 20151121211931) do
+
+  create_table "allergies", force: :cascade do |t|
+    t.integer  "timeline_id"
+    t.string   "name"
+    t.integer  "severity"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "allergies", ["timeline_id"], name: "index_allergies_on_timeline_id"
 
   create_table "children", force: :cascade do |t|
     t.text     "first_name"
