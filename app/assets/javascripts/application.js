@@ -24,8 +24,9 @@ var vaccineDeletions = [];
 var allergyChanges = [];
 var allergyAdditions = [];
 var allergyDeletions = [];
-var birthdate = new Date("03/25/1995");
+var birthdate = new Date("05/18/1997");
 var editted = false;
+additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions};
 changes = {"development": developmentChanges, "feeding": feedingChanges, "vaccine": vaccineChanges, "allergy": allergyChanges};
 deletions = {"vaccine": vaccineDeletions, "allergy":allergyDeletions};
 
@@ -51,9 +52,10 @@ function editFunc(element,devnum){
 	}
 	}
 function saveFunc(element,devnum){
+	birthdate = new Date($("#birthdate").attr("title"));
 	var eventDate = new Date(String(element.parentElement.previousElementSibling.value));
 	var eventAge = (eventDate-birthdate)/2629929600;
-	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months"
+	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months";
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
 																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
 	if (devnum.slice(0,2) == "dev") {
@@ -85,7 +87,7 @@ function addVacc(element){
 													</td>';
 	}
 
-function saveVacc(element,vaccID,){
+function saveVacc(element,vaccID){
 	var vaccName = String(document.getElementById(vaccID).value);
 	var vaccDate = new Date(element.parentElement.previousElementSibling.value);
 	var vaccAge = (vaccDate - birthdate)/2629929600;
@@ -97,11 +99,11 @@ function saveVacc(element,vaccID,){
 						<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
 					</td>';
 	document.getElementById("vaccineBody").appendChild(bt);
-	vaccineAdditionss.push([vaccName,vaccDate.toISOString()]);
+	vaccineAdditions.push([vaccName,vaccDate.toISOString()]);
 	if (editted == false){
 		changeSaveButton();
 	}
-   }
+}
 
 function deleteVacc(element,vaccID){
 	document.getElementById("vaccineBody").removeChild(element.parentElement.parentElement.parentElement);
@@ -150,8 +152,7 @@ function saveAllergy(element,allergenID,severityID){
 	} else {
 		allergySeverity = "Unknown";
 	};
-	document.getElementById(severityID).parentElement.parentElement.parentElement.innerHTML = '<td>' + allergyName + '</td> \
-																							   <td>' + allergySeverity + '<i id="' + allergyName + '" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i></td>';
+	document.getElementById(severityID).parentElement.parentElement.parentElement.innerHTML = allergySeverity + '<i id="' + allergyName + '" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i>';
 	if (allergenID == "allergenElement"){
 		var bt = document.createElement("tr");
 		bt.innerHTML = 	'<td colspan="3"> \
@@ -198,5 +199,5 @@ function changeSaveButton(){
 }
 
 function updateFormData(){
-	$("#formData").val(JSON.stringify({"changes":changes, "deletions":deletions}));
+	$("#formData").val(JSON.stringify({"additions": additions, "changes":changes, "deletions":deletions}));
 }

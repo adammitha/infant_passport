@@ -1,5 +1,5 @@
 <tr>
 <td><%= vaccination.name %></td>
 <td><%= age_at_vaccination(@timeline.child.date_of_birth,vaccination.date) %> months</td>
-<td><%= vaccination.date.strftime("%B %e, %Y") %><i id="<%= vaccination.name %>" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
+<td><%= vaccination.date.strftime("%B %e, %Y") %><i id="<%= vaccination.id %>" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
 </tr>
