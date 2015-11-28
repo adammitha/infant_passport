@@ -8,13 +8,8 @@ class TimelinesController < ApplicationController
 
   def update
     data = JSON.parse params[:formData]
-    additions = data['additions']
-    changes = data['changes']
     #render :json => changes['allergy']
-    editVaccines changes['vaccine']
-    addVaccines additions['vaccine']
-    addAllergies additions['allergy']
-    editAllergies changes['allergy']
+    updateTimeline(Timeline.find(params[:id]),data)
     redirect_to Timeline.find(params[:id])
   end
 
@@ -22,31 +17,40 @@ class TimelinesController < ApplicationController
   end
 
   private
-    def addVaccines(vaccines)
+    def updateTimeline(timeline,data)
+      additions = data['additions']
+      changes = data['changes']
+      editVaccines(changes['vaccine'],timeline)
+      addVaccines(additions['vaccine'],timeline)
+      addAllergies(additions['allergy'],timeline)
+      editAllergies(changes['allergy'],timeline)
+    end
+
+    def addVaccines(vaccines,timeline)
       vaccines.each do |vaccine|
-        vaccination = Timeline.find(params[:id]).vaccinations.build(name:vaccine[0],date:vaccine[1].to_datetime)
+        vaccination = timeline.vaccinations.build(name:vaccine[0],date:vaccine[1].to_datetime)
         vaccination.save
       end
     end
 
-    def addAllergies(allergies)
+    def addAllergies(allergies,timeline)
       allergies.each do |allergy|
-        allergy = Timeline.find(params[:id]).allergies.build(name:allergy[0],severity:allergy[1])
+        allergy = timeline.allergies.build(name:allergy[0],severity:allergy[1])
         allergy.save
       end
     end
 
-    def editVaccines(vaccines)
+    def editVaccines(vaccines,timeline)
       vaccines.each do |vaccine|
-        vaccination = Timeline.find(params[:id]).vaccinations.find(vaccine[0].to_i)
+        vaccination = timeline.vaccinations.find(vaccine[0].to_i)
         vaccination.date = vaccine[1].to_datetime
         vaccination.save
       end
     end
 
-    def editAllergies(allergies)
+    def editAllergies(allergies,timeline)
       allergies.each do |allergy|
-        modAllergy = Allergy.find(allergy[0].to_i)
+        modAllergy = timeline.allergies.find(allergy[0].to_i)
         modAllergy.severity = allergy[1].to_i
         modAllergy.save
       end
