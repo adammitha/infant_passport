@@ -8,7 +8,6 @@ class TimelinesController < ApplicationController
 
   def update
     data = JSON.parse params[:formData]
-    #render :json => changes['allergy']
     updateTimeline(Timeline.find(params[:id]),data)
     redirect_to Timeline.find(params[:id])
   end
@@ -20,10 +19,13 @@ class TimelinesController < ApplicationController
     def updateTimeline(timeline,data)
       additions = data['additions']
       changes = data['changes']
+      deletions = data['deletions']
       editVaccines(changes['vaccine'],timeline)
       addVaccines(additions['vaccine'],timeline)
       addAllergies(additions['allergy'],timeline)
       editAllergies(changes['allergy'],timeline)
+      deleteVaccines(deletions['vaccine'],timeline)
+      deleteAllergies(deletions['allergy'],timeline)
     end
 
     def addVaccines(vaccines,timeline)
@@ -53,6 +55,18 @@ class TimelinesController < ApplicationController
         modAllergy = timeline.allergies.find(allergy[0].to_i)
         modAllergy.severity = allergy[1].to_i
         modAllergy.save
+      end
+    end
+
+    def deleteVaccines(vaccines,timeline)
+      vaccines.each do |vaccine|
+        Vaccination.find(vaccine.to_i).destroy
+      end
+    end
+
+    def deleteAllergies(allergies,timeline)
+      allergies.each do |allergy|
+        Allergy.find(allergy.to_i).destroy
       end
     end
 
