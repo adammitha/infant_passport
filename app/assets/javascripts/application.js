@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require turbolinks
-//= require_tree .
+//= require_tree 
 var developmentChanges = [];
 var feedingChanges = [];
 var vaccineChanges = [];
@@ -118,21 +118,24 @@ function deleteVacc(element,vaccID){
 function addAllergy(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
-															<input id="allergenElement" type="text" size="10" class="input-sm form-control pull-left" value="" placeholder="Allergen"/> \
-															<span class="input-group-addon"> \
-																<span class="fa fa-floppy-o" onclick="saveAllergy(this,' + "'allergenElement','sel1'" + ')"></span> \
-															</span> \
+															<input id="newAllergen" type="text" size="10" class="input-sm form-control pull-left" value="" placeholder="Allergen"/> \
 														</span> \
 													</td> \
 													<td> \
-														<form class="form-inline"> \
-															  <select class="form-control input-sm" id="sel1"> \
-																<option>Mild</option> \
-																<option>Moderate</option> \
-																<option>Severe</option> \
-																<option>Unknown</option> \
-															  </select> \
-														</span> \
+														<span class="form-inline"> \
+															<span class="input-group"> \
+																  <span class="input-group-addon"> \
+																		<span class="fa fa-floppy-o" onclick="saveAllergy(this,' + "'newAllergen','sel1'" + ')"></span> \
+																  </span> \
+																  <select class="form-control input-sm" id="sel1"> \
+																	<option>Mild</option> \
+																	<option>Moderate</option> \
+																	<option>Severe</option> \
+																	<option>Unknown</option> \
+																  </select> \
+															</span> \
+															<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteAllergy(this,' + "'newAllergen'" + ')">Delete</button> \
+														</span>\
 													</td>';
 	}
 
@@ -140,7 +143,7 @@ function saveAllergy(element,allergenID,severityID){
 	var allergyName = "";
 	var allergySeverityIndex = document.getElementById(severityID).selectedIndex;
 	var allergySeverity = "Unknown";
-	if (allergenID == "allergenElement") {
+	if (allergenID == "newAllergen") {
 		allergyName = String(document.getElementById(allergenID).value);
 	} else {
 		allergyName = allergenID;
@@ -154,8 +157,9 @@ function saveAllergy(element,allergenID,severityID){
 	} else {
 		allergySeverity = "Unknown";
 	};
-	document.getElementById(severityID).parentElement.parentElement.parentElement.innerHTML = allergySeverity + '<i id="' + allergyName + '" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i>';
-	if (allergenID == "allergenElement"){
+	document.getElementById(severityID).parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + allergyName + '</td> \
+																								<td>' + allergySeverity + '<i id="' + allergyName + '" class="fa fa-pencil pull-right" onclick="editAllergy(this,this.id)"></i></td>';
+	if (allergenID == "newAllergen"){
 		var bt = document.createElement("tr");
 		bt.innerHTML = 	'<td colspan="3"> \
 							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
