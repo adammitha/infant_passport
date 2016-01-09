@@ -60,9 +60,9 @@ function saveFunc(element,devnum){
 	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months";
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
 																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
-	if (devnum.slice(0,2) == "dev") {
+	if (devnum.slice(0,3) == "dev") {
 	developmentChanges.push([devnum,eventDate.toISOString()]);
-	} else if (devnum.slice(0,2) == "fed") {
+	} else if (devnum.slice(0,3) == "fed") {
 	feedingChanges.push([devnum,eventDate.toISOString()]);
 	} else {
 	vaccineChanges.push([devnum,eventDate.toISOString()]);
@@ -174,7 +174,7 @@ function saveAllergy(element,allergenID,severityID){
 	}
 }
 
-function editAllergy(element,allergenID){
+function editAllergy(element,allergenID,allergyName){
 	element.parentElement.innerHTML = 	'<span class="form-inline"> \
 											<span class="input-group"> \
 												  <span class="input-group-addon"> \
@@ -207,3 +207,5 @@ function changeSaveButton(){
 function updateFormData(){
 	$("#formData").val(JSON.stringify({"additions": additions, "changes":changes, "deletions":deletions}));
 }
+
+// Everything below this is for the graph / chart page
