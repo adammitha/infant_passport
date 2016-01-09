@@ -33,16 +33,18 @@ deletions = {"vaccine": vaccineDeletions, "allergy":allergyDeletions};
 
 function editFunc(element,devnum){
 	if (devnum.slice(0,3) == "dev" || devnum.slice(0,3) == "fed") {
-		element.parentElement.innerHTML = '<span class="input-group"> \
-												<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" /> \
+		element.parentElement.innerHTML = '<span> \
+											<span class="input-group"> \
+												<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker"/> \
 												<span class="input-group-addon"> \
 													<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 												</span> \
-											</span>';
+											</span>\
+										</span> ';
 	} else {
 		element.parentElement.innerHTML = '<span class="form-inline"> \
 												<span class="input-group"> \
-													<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyyy" data-provide="datepicker" /> \
+													<input type="text" size="20" class="input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" /> \
 													<span class="input-group-addon"> \
 														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 													</span> \
@@ -79,7 +81,7 @@ function addVacc(element){
 													<td> Let us handle the math </td> \
 													<td> \
 														<span class="input-group"> \
-															<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="mm/dd/yyyy" data-provide="datepicker"/> \
+															<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker"/> \
 															<span class="input-group-addon"> \
 																<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'nameElement'" + ')"></span> \
 															</span> \
