@@ -33,6 +33,11 @@ body {
 
 
 /*CSS for timeline page*/
+.date-chooser {
+	cursor: default !important;
+	background: white !important;
+}
+
 .fa-pencil, .fa-floppy-o {
 	cursor: pointer;
 	cursor: hand;

@@ -26,6 +26,7 @@ var allergyAdditions = [];
 var allergyDeletions = [];
 var birthdate = new Date("05/18/1997");
 var editted = false;
+var counter = 0;
 additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions};
 changes = {"development": developmentChanges, "feeding": feedingChanges, "vaccine": vaccineChanges, "allergy": allergyChanges};
 deletions = {"vaccine": vaccineDeletions, "allergy":allergyDeletions};
@@ -35,7 +36,7 @@ function editFunc(element,devnum){
 	if (devnum.slice(0,3) == "dev" || devnum.slice(0,3) == "fed") {
 		element.parentElement.innerHTML = '<span> \
 											<span class="input-group"> \
-												<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker"/> \
+												<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
 												<span class="input-group-addon"> \
 													<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 												</span> \
@@ -44,7 +45,7 @@ function editFunc(element,devnum){
 	} else {
 		element.parentElement.innerHTML = '<span class="form-inline"> \
 												<span class="input-group"> \
-													<input type="text" size="20" class="input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" /> \
+													<input type="text" size="20" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
 													<span class="input-group-addon"> \
 														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 													</span> \
@@ -65,6 +66,9 @@ function saveFunc(element,devnum){
 	developmentChanges.push([devnum,eventDate.toISOString()]);
 	} else if (devnum.slice(0,3) == "fed") {
 	feedingChanges.push([devnum,eventDate.toISOString()]);
+	} else if (devnum.slice(0,10) == "pushedVacc") {
+		var pushedVaccineIndex = findIndex(vaccineAdditions,devnum.slice(10));
+		vaccineAdditions[pushedVaccineIndex] = [devnum.slice(10),birthdate.toISOString()];		
 	} else {
 	vaccineChanges.push([devnum,eventDate.toISOString()]);
 	}
@@ -74,16 +78,17 @@ function saveFunc(element,devnum){
 function addVacc(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
 														<span class="input-group"> \
-															<input id="nameElement" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="Vaccine"/> \
+															<input id="newVacc" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="Vaccine"/> \
 														</span> \
 													</td> \
 													<td> Let us handle the math </td> \
 													<td> \
 														<span class="input-group"> \
-															<input type="text" size="12" class="input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker"/> \
+															<input type="text" size="12" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
 															<span class="input-group-addon"> \
-																<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'nameElement'" + ')"></span> \
+																<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'newVacc'" + ')"></span> \
 															</span> \
+															<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'newVacc'" + ')">Cancel</button> \
 														</span> \
 													</td>';
 	}
@@ -94,7 +99,7 @@ function saveVacc(element,vaccID){
 	var vaccAge = (vaccDate - birthdate)/2629929600;
 	element.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + vaccName + '</td> \
 																				<td>' + Math.round(vaccAge) + ' Months </td> \
-																				<td>' + vaccDate.toDateString().slice(4) + '<i id="vac' + vaccName + '" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
+																				<td>' + vaccDate.toDateString().slice(4) + '<i id="pushedVacc' + vaccName + '" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
 	var bt = document.createElement("tr");
 	bt.innerHTML = 	'<td colspan="3"> \
 						<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
@@ -106,8 +111,19 @@ function saveVacc(element,vaccID){
 
 function deleteVacc(element,vaccID){
 	document.getElementById("vaccineBody").removeChild(element.parentElement.parentElement.parentElement);
-	vaccineDeletions.push(vaccID);
-	changeSaveButton();
+	if (vaccID == "newVacc") {
+		var bt = document.createElement("tr");
+			bt.innerHTML = 	'<td colspan="3"> \
+								<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
+							</td>';
+			document.getElementById("vaccineBody").appendChild(bt);
+	} else if (vaccID.slice(0,10) == "pushedVacc") {
+		var pushedVaccineIndex = findIndex(vaccineAdditions,vaccID.slice(10));
+		vaccineAdditions.splice(pushedVaccineIndex,1);
+	}else {
+		vaccineDeletions.push(vaccID);
+		changeSaveButton();
+	}
 }
 
 function addAllergy(element){
