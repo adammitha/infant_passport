@@ -1,7 +1,8 @@
 class Child < ActiveRecord::Base
   belongs_to :parent
   has_one :timeline, dependent: :destroy
-  before_create :create_timeline
+  has_one :chart, dependent: :destroy
+  before_create :create_dependents
   default_scope -> { order(date_of_birth: :desc) }
   validates :parent_id, presence: true
   validate :date_of_birth_is_valid
@@ -12,8 +13,9 @@ class Child < ActiveRecord::Base
   private
 
     # Creates timeline for child when child is added
-    def create_timeline
+    def create_dependents
       self.build_timeline
+	  self.build_chart
     end
 
     def date_of_birth_is_valid
