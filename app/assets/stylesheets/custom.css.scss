@@ -33,6 +33,11 @@ body {
 
 
 /*CSS for timeline page*/
+.date-chooser {
+	cursor: default !important;
+	background: white !important;
+}
+
 .fa-pencil, .fa-floppy-o {
 	cursor: pointer;
 	cursor: hand;
@@ -43,9 +48,9 @@ ul.nav-pills {
       position: fixed;
 }
 
-#section1 {color: #fff; background-color: #FFBB2D;}
-#section2 {color: #fff; background-color: #FFF52D;}
-#section3 {color: #fff; background-color: #8CED2A;}
+#section1 {color: #fff; background-color: #00CCFF;}
+#section2 {color: #fff; background-color: #8CED2A;}
+#section3 {color: #fff; background-color: #FFBB2D;}
 
 @media screen and (max-width: 810px) {
     #section1, #section2, #section3, {

@@ -4,7 +4,6 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find(params[:id])
     @vaccinations = @timeline.vaccinations
     @allergies = @timeline.allergies
-    @milestones = @timeline.milestones
   end
 
   def update
@@ -58,14 +57,6 @@ class TimelinesController < ApplicationController
         modAllergy = timeline.allergies.find(allergy[0].to_i)
         modAllergy.severity = allergy[1].to_i
         modAllergy.save
-      end
-    end
-
-    def editMilestones(milestones,timeline)
-      milestones.each do |milestone|
-        the_milestone = Milestone.find_or_initialize_by(timeline_id:timeline.id,milestone_id:milestone[0])
-        the_milestone.date = milestone[1].to_datetime
-        the_milestone.save
       end
     end
 

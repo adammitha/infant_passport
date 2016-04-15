@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Parent.create!(first_name: "Adam", last_name: "Mitha", email: "adam@example.com", password: "foobar18", password_confirmation: "foobar18", activated: true, activated_at: Time.zone.now, admin: true)
 
-Parent.create!(first_name: "Obi Wan", last_name: "Kenobi", email: "obiwan@jedi.com", password: "password", password_confirmation: "password", activated: true, activated_at: Time.zone.now)
+Parent.create!(first_name: "Rae", last_name: "Skywalker", email: "rae@jedi.com", password: "password", password_confirmation: "password", activated: true, activated_at: Time.zone.now)
 parent = Parent.find(2)
 parent.children.create!(first_name: "Han", last_name: "Solo", date_of_birth: 1.year.ago, gender: false)
 
