@@ -1,53 +1,15 @@
 <% provide(:title, "Growth Charts") %>
+<div hidden id="birthdate" title="<%= @chart.child.date_of_birth.strftime('%m/%d/%Y') %>"></div>
 <h1>Growth Charts</h1>
       <div id="wrapper">
 		<!-- Create 2 tables, try to pull all relevant data -->
          <div class="chart">
             <h3>Infant height over the first two years of life</h3>
-            <table id="user-data" border="1" cellpadding="10" cellspacing="0"
-            summary="Tracking infant growth">
-               <caption>Height in cm</caption>
-               <thead>
-                  <tr>
-                     <td>&nbsp;</td>
-                     <th scope="col">0</th>
-                     <th scope="col">2</th>
-                     <th scope="col">4</th>
-                     <th scope="col">8</th>
-                     <th scope="col">16</th>
-                     <th scope="col">32</th>
-                     <th scope='col'>64</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr id="Height" class="Height">
-                     <th scope="row">Height</th>
-                     <td>49.9</td>
-                     <td>54.7</td>
-                     <td>58.4</td>
-                     <td>61.45</td>
-                     <td>63.9</td>
-                     <td>65.9</td>
-                     <td>67.6</td>
-                  </tr>
-                  <tr id="Weight" class="Weight">
-                     <th scope="row">Weight</th>
-                     <td>4.7</td>
-                     <td>5.2</td>
-                     <td>5.9</td>
-                     <td>6.6</td>
-                     <td>7.0</td>
-                     <td>7.3</td>
-                     <td>7.9</td>
-                  </tr>
-               </tbody>
-            </table>
          </div>
       </div>
 
       <!--<div id="placeholder"></div>-->
       <div id="content">
-
     		<div class="demo-container">
     			<div id="placeholder" class="demo-placeholder"></div>
     		</div>
@@ -56,4 +18,47 @@
         <button data-index="Height">Height</button>
         <button data-index="Weight">Weight</button>
 	  </div>
+	  
+	  <div>
+			<%= form_tag("/charts/#{params[:id]}", method: "put", id: "saveForm") do %>
+				<%= hidden_field_tag(:formData, "test2") %>
+				<%= submit_tag("Save Changes", class: "btn btn-default disabled", id: "saveChangesButton", onclick: "updateFormData2()") %>
+			<% end %>
+			<h3>Height/Length Growth</h3>
+	        <table class="table" summary="Tracking infant growth">
+					<thead>
+					  <tr>
+						<th>Height</th>
+						<th>Age</th>
+						<th>Date</th>
+					  </tr>
+					</thead>
+					<tbody id="heightBody">
+					  <%= render @heights %>
+					  <tr>
+						<td colspan="3">
+							<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Height</button>
+						</td>
+					  </tr>
+					</tbody>
+			</table>
+			<h3>Weight Growth</h3>
+			<table class="table" summary="Tracking infant growth">
+					<thead>
+					  <tr>
+						<th>Weight</th>
+						<th>Age</th>
+						<th>Date</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <%= render @weights %>
+					  <tr>
+						<td colspan="3">
+							<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Weight</button>
+						</td>
+					  </tr>
+					</tbody>
+			</table>
+	   </div>
 <p>Find me in app/views/charts/show.html.erb</p>
