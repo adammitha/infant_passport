@@ -2,6 +2,7 @@
 <div id="chart" style="height: 250px;"></div>
 <script type="text/javascript">
 
+//testing data
 var d1 = [[1, 50], [2, 60], [3, 65], [4, 70], [5, 73]];
 var d2 = [[1,20],[2,30],[3,35],[4,40],[5,55]];
 var d3 = [d1,d2]
@@ -10,25 +11,38 @@ var d3 = [d1,d2]
 var malesHeight = {"5%": [[0,46.8],[1,51.5],[2,55.1],[3,58.1],[4,60.5],[5,62.4],[6,64.1],[9,68.3],[12,71.8],[15,75],[18,77.8],[24,82.8]], "95%": [[0,53],[1,57.9],[2,61.7],[3,64.8],[4,67.3],[5,69.4],[6,71.1],[9,75.7],[12,79.7],[15,83.3],[18,86.7],[24,92.8]]};
 var malesWeight = {"5%": [[0,2.6],[1,3.6],[2,4.5],[3,5.2],[4,5.8],[5,6.2],[6,6.6],[9,7.4],[12,8.1],[15,8.6],[18,9.1],[24,10.1]], "95%": [[0,4.2],[1,5.5],[2,6.8],[3,7.7],[4,8.4],[5,9],[6,9.5],[9,10.6],[12,11.5],[15,12.3],[18,13.1],[24,14.7]]};
 
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+// You can use CoffeeScript in this file: http://coffeescript.org/
+// graph.js
+
+dataSet = [/*{ year: '2008', a: 5, b: 4},
+  { year: '2009', a: 3, b: 4},
+  { year: '2010', a: 7, b: 4},
+  { year: '2011', a: 5, b: 4},
+  { year: '2012', a: 10, b: 4}*/];
+
+for (var i = 0; i < malesHeight.length - 1; i++) {
+  dataSet[i] = {month: i, malesHeight: malesHeight[i][1]}
+}
+
+
+
 new Morris.Area({
   // ID of the element in which to draw the chart.
   element: 'chart',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
-  data: [
-    { year: '2008', a: 5, b: 10 },
-    { year: '2009', a: 3},
-    { year: '2010', b: 7 },
-    { year: '2011', a: 5, b: 10},
-    { year: '2012', a: 10, b: 0}
-  ],
+  data: dataSet,
   // The name of the data record attribute that contains x-values.
-  xkey: 'year',
+  xkey: 'month',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['a'],
+  ykeys: ['malesHeight'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
   labels: ['Value'],
   behaveLikeLine: true
 });
+
+
 </script>
