@@ -48,9 +48,9 @@ ul.nav-pills {
       position: fixed;
 }
 
-#section1 {color: #fff; background-color: #00CCFF;}
-#section2 {color: #fff; background-color: #8CED2A;}
-#section3 {color: #fff; background-color: #FFBB2D;}
+#section1 {color: #fff; background-color: #00CCFF; border-radius: 10px;}
+#section2 {color: #fff; background-color: #8CED2A; border-radius: 10px;}
+#section3 {color: #fff; background-color: #FFBB2D; border-radius: 10px;}
 
 @media screen and (max-width: 810px) {
     #section1, #section2, #section3, {

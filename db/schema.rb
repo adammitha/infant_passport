@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20160117205324) do
 
   add_index "heights", ["chart_id"], name: "index_heights_on_chart_id"
 
+  create_table "milestones", force: :cascade do |t|
+    t.integer  "timeline_id"
+    t.string   "milestone_id"
+    t.datetime "date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "milestones", ["timeline_id"], name: "index_milestones_on_timeline_id"
+
   create_table "parents", force: :cascade do |t|
     t.string   "first_name"
     t.string   "email"

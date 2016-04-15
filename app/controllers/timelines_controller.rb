@@ -8,8 +8,7 @@ class TimelinesController < ApplicationController
 
   def update
     data = JSON.parse params[:formData]
-    editMilestones(data['changes']['development'],Timeline.find(params[:id]))
-    # updateTimeline(Timeline.find(params[:id]),data)
+    updateTimeline(Timeline.find(params[:id]),data)
     redirect_to Timeline.find(params[:id])
   end
 
@@ -25,7 +24,6 @@ class TimelinesController < ApplicationController
       addVaccines(additions['vaccine'],timeline)
       addAllergies(additions['allergy'],timeline)
       editAllergies(changes['allergy'],timeline)
-      editMilestones(changes['development'],timeline)
       deleteVaccines(deletions['vaccine'],timeline)
       deleteAllergies(deletions['allergy'],timeline)
     end
