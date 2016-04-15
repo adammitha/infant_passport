@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timeline_id: 
+  milestone_id: MyString
+  date: 2016-01-09 18:11:11
+
+two:
+  timeline_id: 
+  milestone_id: MyString
+  date: 2016-01-09 18:11:11

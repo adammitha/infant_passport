@@ -4,11 +4,13 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find(params[:id])
     @vaccinations = @timeline.vaccinations
     @allergies = @timeline.allergies
+    @milestones = @timeline.milestones
   end
 
   def update
     data = JSON.parse params[:formData]
-    updateTimeline(Timeline.find(params[:id]),data)
+    editMilestones(data['changes']['development'],Timeline.find(params[:id]))
+    # updateTimeline(Timeline.find(params[:id]),data)
     redirect_to Timeline.find(params[:id])
   end
 
@@ -24,6 +26,7 @@ class TimelinesController < ApplicationController
       addVaccines(additions['vaccine'],timeline)
       addAllergies(additions['allergy'],timeline)
       editAllergies(changes['allergy'],timeline)
+      editMilestones(changes['development'],timeline)
       deleteVaccines(deletions['vaccine'],timeline)
       deleteAllergies(deletions['allergy'],timeline)
     end
@@ -37,8 +40,8 @@ class TimelinesController < ApplicationController
 
     def addAllergies(allergies,timeline)
       allergies.each do |allergy|
-        allergy = timeline.allergies.build(name:allergy[0],severity:allergy[1])
-        allergy.save
+        new_allergy = timeline.allergies.build(name:allergy[0],severity:allergy[1])
+        new_allergy.save
       end
     end
 
@@ -55,6 +58,14 @@ class TimelinesController < ApplicationController
         modAllergy = timeline.allergies.find(allergy[0].to_i)
         modAllergy.severity = allergy[1].to_i
         modAllergy.save
+      end
+    end
+
+    def editMilestones(milestones,timeline)
+      milestones.each do |milestone|
+        the_milestone = Milestone.find_or_initialize_by(timeline_id:timeline.id,milestone_id:milestone[0])
+        the_milestone.date = milestone[1].to_datetime
+        the_milestone.save
       end
     end
 
