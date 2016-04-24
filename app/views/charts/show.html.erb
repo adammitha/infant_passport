@@ -1,24 +1,15 @@
 <% provide(:title, "Growth Charts") %>
 <div hidden id="birthdate" title="<%= @chart.child.date_of_birth.strftime('%m/%d/%Y') %>"></div>
+<div hidden id="heightDates"><%= @heights.map {|height| (height.date - height.chart.child.date_of_birth)/2628288} %></div>
+<div hidden id="heightValues"><%= @heights.map {|height| height.value} %></div>
+<div hidden id="weightDates"><%= @weights.map {|weight| (weight.date - weight.chart.child.date_of_birth)/2628288} %></div>
+<div hidden id="weightValues"><%= @weights.map {|weight| weight.value} %></div>
 <h1>Growth Charts</h1>
-      <div id="wrapper">
-		<!-- Create 2 tables, try to pull all relevant data -->
-         <div class="chart">
-            <h3>Infant height over the first two years of life</h3>
-         </div>
-      </div>
 
-      <!--<div id="placeholder"></div>-->
-      <div id="content">
-    		<div class="demo-container">
-    			<div id="placeholder" class="demo-placeholder"></div>
-    		</div>
+      <br><br>
+      <div id="heightChart_div" style="width: 900px; height: 500px;"></div>
+      <div id="weightChart_div" style="width: 900px; height: 500px;"></div>
 
-		    <p><label><input id="enableTooltip" type="hidden" checked="checked"></input></label></p>
-        <button data-index="Height">Height</button>
-        <button data-index="Weight">Weight</button>
-	  </div>
-	  
 	  <div>
 			<%= form_tag("/charts/#{params[:id]}", method: "put", id: "saveForm") do %>
 				<%= hidden_field_tag(:formData, "test2") %>
@@ -35,7 +26,7 @@
 					</thead>
 					<tbody id="heightBody">
 					  <%= render @heights %>
-					  <tr>
+					  <tr id="newHeightRow">
 						<td colspan="3">
 							<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Height</button>
 						</td>
@@ -51,11 +42,11 @@
 						<th>Date</th>
 					  </tr>
 					</thead>
-					<tbody>
+					<tbody id="weightBody">
 					  <%= render @weights %>
-					  <tr>
+					  <tr id="newWeightRow">
 						<td colspan="3">
-							<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Weight</button>
+							<button type="button" class="btn btn-info" onclick="addWeight(this)">Add Weight</button>
 						</td>
 					  </tr>
 					</tbody>
@@ -109,4 +100,3 @@ new Morris.Area({
 
 
 </script>
-

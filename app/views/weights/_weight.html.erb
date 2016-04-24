@@ -1,5 +1,5 @@
-<tr>
-<td><%= weight.date %></td>
+<tr id="<%= weight.id %>">
+<td><%= weight.value %></td>
 <td><%= age_at_vaccination(@chart.child.date_of_birth,weight.date) %> months</td>
-<td><%= weight.value %> <i id="<%= weight.id %>" class="fa fa-pencil pull-right" onclick="deleteWeight(this,'<%= weight.id %>')"></i></td>
+<td><%= weight.date.strftime("%B %e, %Y") %> <i class="fa fa-trash pull-right" onclick="deleteWeight(this,'<%= weight.id %>')"></i></td>
 </tr>

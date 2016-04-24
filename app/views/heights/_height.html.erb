@@ -1,5 +1,5 @@
-<tr>
-<td><%= height.date %></td>
+<tr id="<%= height.id %>">
+<td><%= height.value %></td>
 <td><%= age_at_vaccination(@chart.child.date_of_birth,height.date) %> months</td>
-<td><%= height.value %> <i id="<%= height.id %>" class="fa fa-pencil pull-right" onclick="deleteHeight(this,'<%= height.id %>')"></i></td>
+<td><%= height.date.strftime("%B %e, %Y") %> <i class="fa fa-trash pull-right" onclick="deleteHeight(this,'<%= height.id %>')"></i></td>
 </tr>
