@@ -4,10 +4,13 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find(params[:id])
     @vaccinations = @timeline.vaccinations
     @allergies = @timeline.allergies
+    @milestones = @timeline.milestones
+    @date_of_birth = @timeline.child.date_of_birth
   end
 
   def update
     data = JSON.parse params[:formData]
+    #render json: data
     updateTimeline(Timeline.find(params[:id]),data)
     redirect_to Timeline.find(params[:id])
   end
@@ -24,6 +27,8 @@ class TimelinesController < ApplicationController
       addVaccines(additions['vaccine'],timeline)
       addAllergies(additions['allergy'],timeline)
       editAllergies(changes['allergy'],timeline)
+      addMilestones(additions['development'].concat(additions['feeding']),timeline)
+      editMilestones(changes['feeding'],timeline)
       deleteVaccines(deletions['vaccine'],timeline)
       deleteAllergies(deletions['allergy'],timeline)
     end
@@ -42,6 +47,13 @@ class TimelinesController < ApplicationController
       end
     end
 
+    def addMilestones(milestones,timeline)
+      milestones.each do |milestone|
+        new_milestone = timeline.milestones.build(milestone_id:milestone[0],date:milestone[1].to_datetime)
+        new_milestone.save
+      end
+    end
+
     def editVaccines(vaccines,timeline)
       vaccines.each do |vaccine|
         vaccination = timeline.vaccinations.find(vaccine[0].to_i)
@@ -55,6 +67,14 @@ class TimelinesController < ApplicationController
         modAllergy = timeline.allergies.find(allergy[0].to_i)
         modAllergy.severity = allergy[1].to_i
         modAllergy.save
+      end
+    end
+
+    def editMilestones(milestones,timeline)
+      milestones.each do |milestone|
+        modMilestone = timeline.milestones.find_by milestone_id: milestone[0]
+        modMilestone.date = milestone[1].to_datetime
+        modMilestone.save
       end
     end
 
