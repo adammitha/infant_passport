@@ -1,7 +1,7 @@
 <% provide(:title, "Timeline") %>
 <% provide(:extra_body_shit, raw(" data-spy='scroll' data-target='#myScrollspy' data-offset='0'")) %>
-<div hidden id="birthdate" title="<%= @timeline.child.date_of_birth.strftime('%m/%d/%Y') %>"></div>
-<div hidden id="milestones" title="<%= @timeline.milestones.map { |milestone| milestone.milestone_id} %>"></div>
+<div hidden id="birthdate" title="<%= @date_of_birth.strftime('%m/%d/%Y') %>"></div>
+<div hidden id="milestones" title="<%= @timeline.milestones.map { |milestone| milestone.milestone_id } %>"></div>
 	  <div class="row">
 		<nav class="col-sm-3" id="myScrollspy">
 		  <ul class="nav nav-pills nav-stacked" style="padding-top:80px;">
@@ -66,24 +66,11 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Began breastfeeding or infant formula</td>
-						<td>0-6 Months</td>
-						<td>Incomplete<i id="fed1.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Begin solid food</td>
-						<td>6-9 Months</td>
-						<td>Incomplete<i id="fed1.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Transition to cow's milk</td>
-						<td>9-12 Months</td>
-						<td>Incomplete<i id="fed1.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+					  <%= raw(render_feeding_milestone("fed1.1","Begin breastfeeding or infant formula","0-6 Months")) %>
+						<%= raw(render_feeding_milestone("fed1.2","Begin solid food","6-9 Months")) %>
+						<%= raw(render_feeding_milestone("fed1.3","Transition to cow's milk","9-12 Months")) %>
 					</tbody>
 				</table>
-				<h3>Year 2</h3>
 			  </div>
 				<br />
 			  <div class="scrollspy-section" id="section3">
@@ -100,18 +87,9 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Responds to sound</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev1.1" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Focusses on faces</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev1.2" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev1.1","Communication","Responds to sound")) %>
+					  <%= raw(render_development_milestone("dev1.2","Communication","Focuses on faces")) %>
+
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 2</h4>
@@ -125,24 +103,9 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Smiles, blows bubbles, or coos</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev2.1" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Calms down when comforted</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev2.2" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Moves arms and legs</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev2.3" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev2.1","Communication","Smiles, blows bubbles, or coos")) %>
+						<%= raw(render_development_milestone("dev2.2","Communication","Calms down when comforted")) %>
+						<%= raw(render_development_milestone("dev2.3","Communication","Moves arms and legs")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 3</h4>
@@ -156,48 +119,13 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Rolls from front to back</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.1" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Controls head and neck when sitting with support</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.2" id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Raises head and chest when lying on stomach</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Kicks legs when lying down</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Brings hands together</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Opens and shuts mouth</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Brings hands to mouth</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev3.7" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev3.1","Gross Motor","Rolls from front to back")) %>
+					  <%= raw(render_development_milestone("dev3.2","Gross Motor","Controls head and neck when sitting with support")) %>
+						<%= raw(render_development_milestone("dev3.3","Gross Motor","Raises head and chest when lying on stomach")) %>
+						<%= raw(render_development_milestone("dev3.4","Gross Motor","Kicks legs when lying down")) %>
+						<%= raw(render_development_milestone("dev3.5","Fine Motor","Brings hands together")) %>
+					  <%= raw(render_development_milestone("dev3.6","Fine Motor","Opens and shuts mouth")) %>
+						<%= raw(render_development_milestone("dev3.7","Fine Motor","Brings hands to mouth")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 4</h4>
@@ -211,42 +139,12 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Responds to voices, laughs and smiles</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Support self on forearms</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Keeps head in midline when on back</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Follows object or person with eyes</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Reaches for object when sitting</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Holds objects briefly</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev4.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev4.1","Communication","Responds to voices, laughs and smiles")) %>
+					  <%= raw(render_development_milestone("dev4.2","Gross Motor","Support self on forearms")) %>
+					  <%= raw(render_development_milestone("dev4.3","Gross Motor","Keeps head in midline when on back")) %>
+					  <%= raw(render_development_milestone("dev4.4","Fine Motor","Follows object or person with eyes")) %>
+					  <%= raw(render_development_milestone("dev4.5","Fine Motor","Reaches for object when sitting")) %>
+						<%= raw(render_development_milestone("dev4.6","Fine Motor","Holds objects briefly")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 6</h4>
@@ -260,36 +158,11 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Responds to name</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev6.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Vocalizes pleasure or displeasure</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev6.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Imitates simple sounds</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev6.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Push up on hands when on stomach</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev6.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Roll from back to side</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev6.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev6.1","Communication","Responds to name")) %>
+					  <%= raw(render_development_milestone("dev6.2","Communication","Vocalizes pleasure or displeasure")) %>
+						<%= raw(render_development_milestone("dev6.3","Communication","Imitates simple sounds")) %>
+					  <%= raw(render_development_milestone("dev6.4","Gross Motor","Push up on hands when on stomach")) %>
+						<%= raw(render_development_milestone("dev6.5","Gross Motor","Roll from back to side")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 9</h4>
@@ -303,42 +176,12 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Imitates facial expressions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Plays social games (e.g. Peek-a-boo)</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Sits unassisted</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Stands with assistance</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Passes objects from hand to hand</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Picks up small objects with thumb and forefinger</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev9.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev9.1","Communication","Imitates facial expressions")) %>
+					  <%= raw(render_development_milestone("dev9.2","Communication","Plays social games (e.g. Peek-a-boo)")) %>
+						<%= raw(render_development_milestone("dev9.3","Gross Motor","Sits unassisted")) %>
+					  <%= raw(render_development_milestone("dev9.4","Gross Motor","Stands with assistance")) %>
+					  <%= raw(render_development_milestone("dev9.5","Fine Motor","Passes objects from hand to hand")) %>
+					  <%= raw(render_development_milestone("dev9.6","Fine Motor","Picks up small objects with thumb and forefinger")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 12</h4>
@@ -352,84 +195,18 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Communicates with gestures</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Combines multiple sounds</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Expresses emotions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Follows one-step instructions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Crawls or shuffles</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Can pull up to standing position</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Walk while holding hand</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.7" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Stand briefly unassisted</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.8" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Release objects voluntarily</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.9" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Pokes with index finger</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.10" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Pushes and pulls toys</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.11" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Pokes with index finger</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.12" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Puts objects in containers</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev12.13" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev12.1","Communication","Communicates with gestures")) %>
+					  <%= raw(render_development_milestone("dev12.2","Communication","Combines multiple sounds")) %>
+						<%= raw(render_development_milestone("dev12.3","Communication","Expresses emotions")) %>
+						<%= raw(render_development_milestone("dev12.4","Cognition","Follows one-step instructions")) %>
+						<%= raw(render_development_milestone("dev12.5","Gross Motor","Crawls or shuffles")) %>
+						<%= raw(render_development_milestone("dev12.6","Gross Motor","Can pull up to standing position")) %>
+						<%= raw(render_development_milestone("dev12.7","Gross Motor","Walk while holding hand")) %>
+						<%= raw(render_development_milestone("dev12.8","Gross Motor","Stand briefly unassisted")) %>
+					  <%= raw(render_development_milestone("dev12.9","Fine Motor","Release objects voluntarily")) %>
+						<%= raw(render_development_milestone("dev12.10","Fine Motor","Pokes with index finger")) %>
+						<%= raw(render_development_milestone("dev12.11","Fine Motor","Pushes and pulls toys")) %>
+						<%= raw(render_development_milestone("dev12.12","Fine Motor","Puts objects in containers")) %>
 					</tbody>
 				  </table>
 				<h3>Year 2</h3>
@@ -444,66 +221,17 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Uses more than five words</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Shows something with words and actions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Repeats actions for attention</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognition</td>
-						<td>Looks at pictures while they are named</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognition</td>
-						<td>Recognizes body parts on self</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Crawls up stairs</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Walks sideways holding on to furniture</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.7" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Removes socks</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.8" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Stacks blocks</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.9" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Picks up and eats finger food</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev15.10" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev15.1","Communication","Uses more than five words")) %>
+					  <%= raw(render_development_milestone("dev15.2","Communication","Shows something with words and actions")) %>
+						<%= raw(render_development_milestone("dev15.3","Communication","Repeats actions for attention")) %>
+						<%= raw(render_development_milestone("dev15.4","Cognition","Looks at pictures while they are named")) %>
+					  <%= raw(render_development_milestone("dev15.5","Cognition","Recognizes body parts on self")) %>
+					  <%= raw(render_development_milestone("dev15.6","Gross Motor","Crawls up stairs")) %>
+						<%= raw(render_development_milestone("dev15.7","Gross Motor","Walks sideways holding on to furniture")) %>
+					  <%= raw(render_development_milestone("dev15.8","Fine Motor","Removes socks")) %>
+					  <%= raw(render_development_milestone("dev15.9","Fine Motor","Stacks blocks")) %>
+						<%= raw(render_development_milestone("dev15.10","Fine Motor","Picks up and eats finger food")) %>
+
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 18</h4>
@@ -517,54 +245,14 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Responds to simple questions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Makes a variety of consonant sounds</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i><td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Shows affection to pets, toys, people</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Understands directionality (in/out, up/down)</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Identifies pictures in books</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Walks without assistance</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Squats to pick up toys without falling</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.7" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Holds cup to drink</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev18.8" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev18.1","Communication","Responds to simple questions")) %>
+						<%= raw(render_development_milestone("dev18.2","Communication","Makes a variety of consonant sounds")) %>
+						<%= raw(render_development_milestone("dev18.3","Communication","Shows affection to pets, toys, people")) %>
+						<%= raw(render_development_milestone("dev18.4","Cognition","Understands directionality (in/out, up/down)")) %>
+						<%= raw(render_development_milestone("dev18.5","Cognition","Identifies pictures in books")) %>
+						<%= raw(render_development_milestone("dev18.6","Gross Motor","Walks without assistance")) %>
+						<%= raw(render_development_milestone("dev18.7","Gross Motor","Squats to pick up toys without falling")) %>
+					  <%= raw(render_development_milestone("dev18.8","Fine Motor","Holds cup to drink")) %>
 					</tbody>
 				  </table>
 				  <h4 class="text-right">Month 24</h4>
@@ -578,72 +266,17 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Communication</td>
-						<td>Uses pronouns</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.1" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Uses short phrases</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.2" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i><td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Can be understood when speaking</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.3" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Communication</td>
-						<td>Socializes with children of same age</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.4" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Follows two-step directions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.5" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Copies actions</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.6" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Cognitive</td>
-						<td>Correctly holds books and flips pages</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.7" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Begins to run</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.8" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Gross Motor</td>
-						<td>Walks backwards and sideways</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.9" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Eats with utensil with some spilling</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.10" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
-					  <tr>
-						<td>Fine Motor</td>
-						<td>Takes off shoes</td>
-						<td>Older</td>
-						<td>Incomplete<i id="dev24.11" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>
-					  </tr>
+						<%= raw(render_development_milestone("dev18.1","Communication","Uses pronouns")) %>
+						<%= raw(render_development_milestone("dev18.2","Communication","Uses short phrases")) %>
+						<%= raw(render_development_milestone("dev18.3","Communication","Can be understood when speaking")) %>
+						<%= raw(render_development_milestone("dev18.4","Communication","Socializes with children of same age")) %>
+						<%= raw(render_development_milestone("dev18.5","Cognition","Follows two-step directions")) %>
+						<%= raw(render_development_milestone("dev18.6","Cognition","Copies actions")) %>
+						<%= raw(render_development_milestone("dev18.7","Cognition","Correctly holds books and flips pages")) %>
+						<%= raw(render_development_milestone("dev18.8","Gross Motor","Begins to run")) %>
+						<%= raw(render_development_milestone("dev18.9","Gross Motor","Walks backwards and sideways")) %>
+					  <%= raw(render_development_milestone("dev18.10","Fine Motor","Eats with utensil with some spilling")) %>
+						<%= raw(render_development_milestone("dev18.11","Fine Motor","Takes off shoes")) %>
 					</tbody>
 				  </table>
 			  </div>

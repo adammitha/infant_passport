@@ -5,6 +5,7 @@ class TimelinesController < ApplicationController
     @vaccinations = @timeline.vaccinations
     @allergies = @timeline.allergies
     @milestones = @timeline.milestones
+    @date_of_birth = @timeline.child.date_of_birth
   end
 
   def update
