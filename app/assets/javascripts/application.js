@@ -23,7 +23,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	birthdate = new Date($("#birthdate").attr("title"));
-}); 
+});
 var heightAdditions = [];
 var heightDeletions = [];
 var weightAdditions = [];
@@ -33,6 +33,82 @@ var counter = 0;
 chartAdditions = {"height": heightAdditions, "weight": weightAdditions};
 chartDeletions = {"height": heightDeletions, "weight": weightDeletions};
 
+//= require_tree
+$(document).ready(function(){
+	birthdate = new Date($("#birthdate").attr("title"));
+	milestones = $.parseJSON($("#milestones").attr("title"));
+});
+var developmentAdditions = [];
+var developmentChanges = [];
+var feedingAdditions = [];
+var feedingChanges = [];
+var vaccineChanges = [];
+var vaccineAdditions = [];
+var vaccineDeletions = [];
+var allergyChanges = [];
+var allergyAdditions = [];
+var allergyDeletions = [];
+var editted = false;
+var counter = 0;
+var milestones = [];
+additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions, "development": developmentAdditions, "feeding": feedingAdditions};
+changes = {"development": developmentChanges, "feeding": feedingChanges, "vaccine": vaccineChanges, "allergy": allergyChanges};
+deletions = {"vaccine": vaccineDeletions, "allergy":allergyDeletions};
+
+function isInArray(value, array) {
+	return array.indexOf(value) > -1;
+}
+
+function editFunc(element,devnum){
+	if (devnum.slice(0,3) == "dev" || devnum.slice(0,3) == "fed") {
+		element.parentElement.innerHTML = '<span> \
+											<span class="input-group"> \
+												<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+												<span class="input-group-addon"> \
+													<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
+												</span> \
+											</span>\
+										</span> ';
+	} else {
+		element.parentElement.innerHTML = '<span class="form-inline"> \
+												<span class="input-group"> \
+													<input type="text" size="20" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+													<span class="input-group-addon"> \
+														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
+													</span> \
+												</span> \
+												<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'" + devnum + "'" + ')">Delete</button> \
+											</span> ' ;
+	}
+}
+
+function saveFunc(element,devnum){
+	var eventDate = new Date(String(element.parentElement.previousElementSibling.value));
+	var eventAge = (eventDate-birthdate)/2629929600;
+	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months";
+	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
+																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
+	if (devnum.slice(0,3) == "dev") {
+		if (isInArray(devnum,milestones)) {
+			developmentChanges.push([devnum,eventDate.toISOString()]);
+		}	else {
+			developmentAdditions.push([devnum,eventDate.toISOString()]);
+		}
+	} else if (devnum.slice(0,3) == "fed") {
+		if (isInArray(devnum,milestones)) {
+			feedingChanges.push([devnum,eventDate.toISOString()]);
+		} else {
+			feedingAdditions.push([devnum,eventDate.toISOString()]);
+		}
+	} else if (devnum.slice(0,10) == "pushedVacc") {
+		var pushedVaccineIndex = findIndex(vaccineAdditions,devnum.slice(11)) 	;
+		vaccineAdditions[pushedVaccineIndex] = [devnum.slice(11),birthdate.toISOString()];
+	} else {
+	vaccineChanges.push([devnum,eventDate.toISOString()]);
+	}
+	changeSaveButton();
+}
+>>>>>>> milestones
 
 function addHeight(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
@@ -85,6 +161,17 @@ function deleteHeight(element,heightID){
 		heightDeletions.push(heightID);
 		changeSaveButton();
 	}
+<<<<<<< HEAD
+=======
+	document.getElementById("allergyBody").removeChild(element.parentElement.parentElement.parentElement);
+	if (allergenID == "newAllergen"){
+		var bt = document.createElement("tr");
+		bt.innerHTML = 	'<td colspan="3"> \
+							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
+						</td>';
+		document.getElementById("allergyBody").appendChild(bt);
+	}
+>>>>>>> milestones
 }
 
 function changeSaveButton(){
@@ -105,5 +192,3 @@ function findIndex(array,firstItem){
 		}
 	}
 }
-
-

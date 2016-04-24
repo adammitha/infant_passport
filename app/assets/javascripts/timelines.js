@@ -8,9 +8,11 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	birthdate = new Date($("#birthdate").attr("title"));
-}); 
-
+  milestones = $.parseJSON($("#milestones").attr("title"));
+});
+var developmentAdditions = [];
 var developmentChanges = [];
+var feedingAdditions = [];
 var feedingChanges = [];
 var vaccineChanges = [];
 var vaccineAdditions = [];
@@ -20,10 +22,14 @@ var allergyAdditions = [];
 var allergyDeletions = [];
 var editted = false;
 var counter = 0;
-additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions};
+var milestones = [];
+additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions, "development": developmentAdditions, "feeding": feedingAdditions};
 changes = {"development": developmentChanges, "feeding": feedingChanges, "vaccine": vaccineChanges, "allergy": allergyChanges};
 deletions = {"vaccine": vaccineDeletions, "allergy":allergyDeletions};
 
+function isInArray(value, array) {
+	return array.indexOf(value) > -1;
+}
 
 function editFunc(element,devnum){
 	if (devnum.slice(0,3) == "dev" || devnum.slice(0,3) == "fed") {
@@ -55,9 +61,17 @@ function saveFunc(element,devnum){
 	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
 																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
 	if (devnum.slice(0,3) == "dev") {
-	developmentChanges.push([devnum,eventDate.toISOString()]);
+		if (isInArray(devnum,milestones)) {
+			developmentChanges.push([devnum,eventDate.toISOString()]);
+		}	else {
+			developmentAdditions.push([devnum,eventDate.toISOString()]);
+		}
 	} else if (devnum.slice(0,3) == "fed") {
-	feedingChanges.push([devnum,eventDate.toISOString()]);
+		if (isInArray(devnum,milestones)) {
+			feedingChanges.push([devnum,eventDate.toISOString()]);
+		} else {
+			feedingAdditions.push([devnum,eventDate.toISOString()]);
+		}
 	} else if (devnum.slice(0,10) == "pushedVacc") {
 		var pushedVaccineIndex = findIndex(vaccineAdditions,devnum.slice(11)) 	;
 		vaccineAdditions[pushedVaccineIndex] = [devnum.slice(11),birthdate.toISOString()];
@@ -206,7 +220,7 @@ function deleteAllergy(element,allergenID,allergyName){
 		bt.innerHTML = 	'<td colspan="3"> \
 							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
 						</td>';
-		document.getElementById("allergyBody").appendChild(bt);		
+		document.getElementById("allergyBody").appendChild(bt);
 	}
 }
 
