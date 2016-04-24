@@ -1,0 +1,305 @@
+// Script for charts
+$(document).ready(function(){
+	heightDates = $.parseJSON($("#heightDates").html());
+  heightValues = $.parseJSON($("#heightValues").html());
+  heightArray = altCombineValues(heightDates,heightValues,normalMaleHeight,"Height");
+  weightDates = $.parseJSON($("#weightDates").html());
+  weightValues = $.parseJSON($("#weightValues").html());
+  weightArray = altCombineValues(weightDates,weightValues,normalMaleWeight, "Weight");
+});
+
+var normalMaleHeight = [
+[0,46.8,53,null],
+[1,51.5,57.9,null],
+[2,55.1,61.7,null],
+[3,58.1,64.8,null],
+[4,60.5,67.3,null],
+[5,62.4,69.4,null],
+[6,64.1,71.1,null],
+[9,68.3,75.7,null],
+[12,71.8,79.7,null],
+[15,75,83.3,null],
+[18,77.8,86.7,null],
+[24,82.8,92.8,null]
+];
+var normalFemaleHeight = [
+[0,46.1,52.2,null],
+[1,50.5,56.9,null],
+[2,53.7,60.4,null],
+[3,56.3,63.3,null],
+[4,58.5,65.7,null],
+[5,60.4,67.7,null],
+[6,62,69.5,null],
+[9,66.2,74.1,null],
+[12,69.8,78.3,null],
+[15,73,82,null],
+[18,75.9,85.5,null],
+[24,81.1,91.7,null],
+];
+var normalMaleWeight = [
+[0,2.6,4.2,null],
+[1,3.6,5.5,null],
+[2,4.5,6.8,null],
+[3,5.2,7.7,null],
+[4,5.8,8.4,null],
+[5,6.2,9,null],
+[6,6.6,9.5,null],
+[9,7.4,10.6,null],
+[12,8.1,11.5,null],
+[15,8.6,12.3,null],
+[18,9.1,13.1,null],
+[24,10.1,14.7,null],
+];
+var normalFemaleWeight = [
+[0,2.5,4,null],
+[1,3.3,5.2,null],
+[2,4.1,6.3,null],
+[3,4.7,7.2,null],
+[4,5.2,7.9,null],
+[5,5.6,8.4,null],
+[6,6,8.9,null],
+[9,6.8,10.1,null],
+[12,7.3,11,null],
+[15,7.9,11.8,null],
+[18,8.4,12.6,null],
+[24,9.4,14.2,null],
+]
+
+function altCombineValues(arr1,arr2,arr3,type){
+  var newArr = [];
+  for (i=0; i<arr1.length; i++) {
+    newArr.push([arr1[i],null,null,arr2[i]]);
+  }
+  for (i=0; i<arr3.length; i++) {
+    newArr.push(arr3[i]);
+  }
+  newArr.sort(sortFunction);
+  newArr.unshift(['Months','5th Percentile','95th Percentile',type]);
+  return newArr;
+}
+
+function sortFunction(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
+}
+
+google.charts.load('current', {'packages':['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+google.charts.setOnLoadCallback(drawCurveTypes2);
+
+function drawCurveTypes() {
+  var data = google.visualization.arrayToDataTable(heightArray);
+
+  var options = {
+    title: 'Infant Height over first two years',
+    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+    vAxis: {title: 'Height / Length (cm)',},
+    interpolateNulls: true,
+    animation: {
+      startup: true,
+    },
+    series: {
+    0: {color: 'black'},
+    1: {color: 'black'},
+    2: {color: 'blue'}
+    }
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('heightChart_div'));
+  chart.draw(data, options);
+}
+
+function drawCurveTypes2() {
+  var data = google.visualization.arrayToDataTable(weightArray);
+
+  var options = {
+    title: 'Infant Weight over first two years',
+    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+    vAxis: {title: 'Weight (kg)',},
+    interpolateNulls: true,
+    animation: {
+      startup: true,
+    },
+    series: {
+    0: {color: 'black'},
+    1: {color: 'black'},
+    2: {color: 'blue'}
+    }
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('weightChart_div'));
+  chart.draw(data, options);
+}
+
+// Script below is for the table of vaues for heights and weights
+//
+//
+//
+//
+//
+//
+//
+//
+
+$(document).ready(function(){
+  $('.datepicker').datepicker();
+ })
+
+$(document).ready(function(){
+	birthdate = new Date($("#birthdate").attr("title"));
+});
+
+var heightAdditions = [];
+var heightDeletions = [];
+var weightAdditions = [];
+var weightDeletions = [];
+var editted = false;
+var counter = 0;
+chartAdditions = {"height": heightAdditions, "weight": weightAdditions};
+chartDeletions = {"height": heightDeletions, "weight": weightDeletions};
+
+
+function addHeight(element){
+  counter ++;
+  var newID = "newHeight" + counter;
+  document.getElementById("newHeightRow").id = newID;
+  document.getElementById(newID).innerHTML = '\
+        <td> \
+    			<span class="input-group"> \
+    				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
+    			</span> \
+    		</td> \
+    		<td>"Let us do the math"</td> \
+    		<td> \
+    			<span class="form-inline"> \
+    				<span class="input-group"> \
+    					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+    					<span class="input-group-addon"> \
+    						<span class="fa fa-floppy-o" onclick="saveHeight(this,' + "'" + newID + "'" + ')"></span> \
+    					</span> \
+    				</span> \
+    				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteHeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
+    			</span> \
+    		</td>';
+	}
+
+function saveHeight(element,heightID){
+	var heightValue = String(document.getElementById(heightID + "Value").value);
+	var heightDate = new Date(element.parentElement.previousElementSibling.value);
+	var heightAge = (heightDate - birthdate)/2629929600;
+  var pushedID = "pushedHeight" + heightID.slice(9,heightID.length);
+  document.getElementById(heightID).id = pushedID;
+	document.getElementById(pushedID).innerHTML = '<td>' + heightValue + " cm" + '</td> \
+																				<td>' + Math.round(heightAge) + ' Months </td> \
+																				<td>' + heightDate.toDateString().slice(4) + '<i class="fa fa-trash pull-right" onclick="deleteHeight(this,' + "'" + pushedID + "'" + ')"></i></td>';
+	var bt = document.createElement("tr");
+	bt.id = "newHeightRow";
+  bt.innerHTML = 	'<td colspan="3"> \
+						<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Height</button> \
+					</td>';
+	document.getElementById("heightBody").appendChild(bt);
+	heightAdditions.push([heightValue,heightDate.toISOString()]);
+	changeSaveButton();
+}
+
+function deleteHeight(element,heightID){
+	document.getElementById("heightBody").removeChild(document.getElementById(heightID));
+	if (heightID.slice(0,9) == "newHeight") {
+		var bt = document.createElement("tr");
+    bt.id = "newHeightRow";
+		bt.innerHTML = 	'<td colspan="3"> \
+							<button type="button" class="btn btn-info" onclick="addHeight(this)">Add Height</button> \
+						</td>';
+		document.getElementById("heightBody").appendChild(bt);
+	} else if (heightID.slice(0,12) == "pushedHeight") {
+		var pushedHeightIndex = findIndex(heightAdditions,heightID.slice(13));
+		heightAdditions.splice(pushedHeightIndex,1);
+	} else {
+		heightDeletions.push(heightID);
+		changeSaveButton();
+	}
+}
+
+function addWeight(element){
+  counter ++;
+  var newID = "newWeight" + counter;
+  document.getElementById("newWeightRow").id = newID;
+  document.getElementById(newID).innerHTML = '\
+        <td> \
+    			<span class="input-group"> \
+    				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
+    			</span> \
+    		</td> \
+    		<td>"Let us do the math"</td> \
+    		<td> \
+    			<span class="form-inline"> \
+    				<span class="input-group"> \
+    					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+    					<span class="input-group-addon"> \
+    						<span class="fa fa-floppy-o" onclick="saveWeight(this,' + "'" + newID + "'" + ')"></span> \
+    					</span> \
+    				</span> \
+    				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteWeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
+    			</span> \
+    		</td>';
+	}
+
+function saveWeight(element,weightID){
+	var weightValue = String(document.getElementById(weightID + "Value").value);
+	var weightDate = new Date(element.parentElement.previousElementSibling.value);
+	var weightAge = (weightDate - birthdate)/2629929600;
+  var pushedID = "pushedWeight" + weightID.slice(9,weightID.length);
+  document.getElementById(weightID).id = pushedID;
+	document.getElementById(pushedID).innerHTML = '<td>' + weightValue + " cm" + '</td> \
+																				<td>' + Math.round(weightAge) + ' Months </td> \
+																				<td>' + weightDate.toDateString().slice(4) + '<i class="fa fa-trash pull-right" onclick="deleteWeight(this,' + "'" + pushedID + "'" + ')"></i></td>';
+	var bt = document.createElement("tr");
+	bt.id = "newWeightRow";
+  bt.innerHTML = 	'<td colspan="3"> \
+						<button type="button" class="btn btn-info" onclick="addWeight(this)">Add Weight</button> \
+					</td>';
+	document.getElementById("weightBody").appendChild(bt);
+	weightAdditions.push([weightValue,weightDate.toISOString()]);
+	changeSaveButton();
+}
+
+function deleteWeight(element,weightID){
+	document.getElementById("weightBody").removeChild(document.getElementById(weightID));
+	if (weightID.slice(0,9) == "newWeight") {
+		var bt = document.createElement("tr");
+    bt.id = "newWeightRow";
+		bt.innerHTML = 	'<td colspan="3"> \
+							<button type="button" class="btn btn-info" onclick="addWeight(this)">Add Weight</button> \
+						</td>';
+		document.getElementById("weightBody").appendChild(bt);
+	} else if (weightID.slice(0,12) == "pushedWeight") {
+		var pushedWeightIndex = findIndex(weightAdditions,weightID.slice(13));
+		weightAdditions.splice(pushedWeightIndex,1);
+	} else {
+		weightDeletions.push(weightID);
+		changeSaveButton();
+	}
+}
+
+function changeSaveButton(){
+	if (editted == false) {
+		document.getElementById("saveChangesButton").className = "btn btn-success";
+		editted = true;
+	}
+}
+
+function updateFormData2(){
+	$("#formData").val(JSON.stringify({"additions":chartAdditions, "deletions":chartDeletions}));
+}
+
+function findIndex(array,firstItem){
+	for (i = 0; i < array.length; i++) {
+		if (array[i][0] == firstItem) {
+			return i;
+		}
+	}
+}
