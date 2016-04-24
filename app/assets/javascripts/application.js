@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require turbolinks
-//= require_tree 
+//= require_tree
 
 $(document).ready(function(){
   $('.datepicker').datepicker();
@@ -108,7 +108,6 @@ function saveFunc(element,devnum){
 	}
 	changeSaveButton();
 }
->>>>>>> milestones
 
 function addHeight(element){
 	element.parentElement.parentElement.innerHTML = '<td> \
@@ -161,17 +160,6 @@ function deleteHeight(element,heightID){
 		heightDeletions.push(heightID);
 		changeSaveButton();
 	}
-<<<<<<< HEAD
-=======
-	document.getElementById("allergyBody").removeChild(element.parentElement.parentElement.parentElement);
-	if (allergenID == "newAllergen"){
-		var bt = document.createElement("tr");
-		bt.innerHTML = 	'<td colspan="3"> \
-							<button type="button" class="btn btn-info" onclick="addAllergy(this)">Add Allergy</button> \
-						</td>';
-		document.getElementById("allergyBody").appendChild(bt);
-	}
->>>>>>> milestones
 }
 
 function changeSaveButton(){
