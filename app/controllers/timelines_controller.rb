@@ -13,11 +13,8 @@ class TimelinesController < ApplicationController
   def update
     data = JSON.parse params[:formData]
     #render json: data
-    if updateTimeline(Timeline.find(params[:id]),data)
-      redirect_to Timeline.find(params[:id])
-    else
-      flash[:danger] = "Error!"
-    end
+    updateTimeline(Timeline.find(params[:id]),data)
+    redirect_to Timeline.find(params[:id])
   end
 
   private
