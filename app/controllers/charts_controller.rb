@@ -1,4 +1,7 @@
 class ChartsController < ApplicationController
+  before_action :logged_in_parent, only: [:show, :update]
+  before_action :correct_parent, only: [:show, :update]
+
   def show
     @chart = Chart.find(params[:id])
     @heights = @chart.heights
@@ -8,10 +11,10 @@ class ChartsController < ApplicationController
   def update
     data = JSON.parse params[:formData]
 	updateChart(Chart.find(params[:id]),data)
-    redirect_to Chart.find(params[:id])  
+    redirect_to Chart.find(params[:id])
   end
-  
-    private
+
+  private
     def updateChart(chart,data)
       additions = data['additions']
       deletions = data['deletions']
@@ -45,5 +48,20 @@ class ChartsController < ApplicationController
       weights.each do |weight|
         Weight.find(weight.to_i).destroy
       end
+    end
+
+    # Confirms a logged-in parent
+    def logged_in_parent
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms the correct parent.
+    def correct_parent
+      @parent = Parent.find(params[:id])
+      redirect_to(root_url) unless current_parent?(@parent)
     end
 end

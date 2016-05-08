@@ -1,14 +1,8 @@
 require 'test_helper'
 
 class ChartsControllerTest < ActionController::TestCase
-  test "should get show" do
-    get :show
-    assert_response :success
-  end
-
-  test "should get update" do
-    get :update
-    assert_response :success
+  def setup
+    @chart = charts(:one)
   end
 
 end
