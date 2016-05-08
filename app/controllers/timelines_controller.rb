@@ -1,4 +1,6 @@
 class TimelinesController < ApplicationController
+  before_action :logged_in_parent, only: [:show, :update]
+  before_action :correct_parent, only: [:show, :update]
 
   def show
     @timeline = Timeline.find(params[:id])
@@ -11,11 +13,11 @@ class TimelinesController < ApplicationController
   def update
     data = JSON.parse params[:formData]
     #render json: data
-    updateTimeline(Timeline.find(params[:id]),data)
-    redirect_to Timeline.find(params[:id])
-  end
-
-  def destroy
+    if updateTimeline(Timeline.find(params[:id]),data)
+      redirect_to Timeline.find(params[:id])
+    else
+      flash[:danger] = "Error!"
+    end
   end
 
   private
@@ -88,6 +90,20 @@ class TimelinesController < ApplicationController
       allergies.each do |allergy|
         Allergy.find(allergy.to_i).destroy
       end
+    end
+
+    def logged_in_parent
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms the correct parent.
+    def correct_parent
+      @parent = Parent.find(params[:id])
+      redirect_to(root_url) unless current_parent?(@parent)
     end
 
 end

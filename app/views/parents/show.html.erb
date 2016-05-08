@@ -92,7 +92,7 @@
             <%= f.text_field :last_name, class: "form-control" %>
 
             <%= f.label :date_of_birth %>
-            <%= f.text_field :date_of_birth, :class => 'datepicker', :placeholder => 'mm/dd/yyyy', "data-provide" => 'datepicker' %>
+            <%= f.text_field :date_of_birth, :class => 'datepicker', :placeholder => 'mm/dd/yyyy', "data-provide" => 'datepicker', "readonly" => 'readonly' %>
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-default">
                 <%= f.radio_button :gender, false %>Male

@@ -40,4 +40,21 @@ module TimelinesHelper
   def age_at_milestone(date_of_milestone)
     (date_of_milestone.year * 12 + date_of_milestone.month) - (@date_of_birth.year * 12 + @date_of_birth.month)
   end
+
+  def age_at_vaccination(date_of_birth, date_of_vaccine)
+     (date_of_vaccine.year * 12 + date_of_vaccine.month) - (date_of_birth.year * 12 + date_of_birth.month)
+  end
+
+  def severity(index)
+    case index
+    when 0
+      "Mild"
+    when 1
+      "Moderate"
+    when 2
+      "Severe"
+    else
+      "Unknown"
+    end
+  end
 end
