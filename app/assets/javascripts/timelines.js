@@ -3,13 +3,10 @@
 //You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready(function(){
-  $('.datepicker').datepicker();
+  birthdate = new Date($("#birthdate").attr("title"));
+  milestones = $.parseJSON($("#milestones").attr("title"));
  })
 
-$(document).ready(function(){
-	birthdate = new Date($("#birthdate").attr("title"));
-  milestones = $.parseJSON($("#milestones").attr("title"));
-});
 var developmentAdditions = [];
 var developmentChanges = [];
 var feedingAdditions = [];
@@ -44,7 +41,7 @@ function editFunc(element,devnum){
 	} else {
 		element.parentElement.innerHTML = '<span class="form-inline"> \
 												<span class="input-group"> \
-													<input type="text" size="20" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+													<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
 													<span class="input-group-addon"> \
 														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
 													</span> \

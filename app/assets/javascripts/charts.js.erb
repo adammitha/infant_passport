@@ -1,11 +1,99 @@
 // Script for charts
 $(document).ready(function(){
+	birthdate = new Date($("#birthdate").attr("title"));
+	gender = $.parseJSON($("#gender").html());
 	heightDates = $.parseJSON($("#heightDates").html());
-  heightValues = $.parseJSON($("#heightValues").html());
-  heightArray = altCombineValues(heightDates,heightValues,normalMaleHeight,"Height");
-  weightDates = $.parseJSON($("#weightDates").html());
+	heightValues = $.parseJSON($("#heightValues").html());
+	weightDates = $.parseJSON($("#weightDates").html());
   weightValues = $.parseJSON($("#weightValues").html());
-  weightArray = altCombineValues(weightDates,weightValues,normalMaleWeight, "Weight");
+	if (gender == 1){
+		heightArray = altCombineValues(heightDates,heightValues,normalFemaleHeight,"Height");
+		weightArray = altCombineValues(weightDates,weightValues,normalFemaleWeight, "Weight");
+	}
+  else {
+		heightArray = altCombineValues(heightDates,heightValues,normalMaleHeight,"Height");
+		weightArray = altCombineValues(weightDates,weightValues,normalMaleWeight, "Weight");
+	}
+
+	function altCombineValues(arr1,arr2,arr3,type){
+	  var newArr = [];
+	  for (i=0; i<arr1.length; i++) {
+	    newArr.push([arr1[i],null,null,arr2[i]]);
+	  }
+	  for (i=0; i<arr3.length; i++) {
+	    newArr.push(arr3[i]);
+	  }
+	  newArr.sort(sortFunction);
+	  newArr.unshift(['Months','5th Percentile','95th Percentile',type]);
+	  return newArr;
+	}
+
+	function sortFunction(a, b) {
+	    if (a[0] === b[0]) {
+	        return 0;
+	    }
+	    else {
+	        return (a[0] < b[0]) ? -1 : 1;
+	    }
+	}
+
+	google.charts.load('current', {'packages':['corechart', 'line']});
+	if (heightValues.length == 0 && weightValues.length == 0) {
+		$("bothPrompt_div").show();
+	}
+	else {
+		if (heightValues.length > 0) {
+			google.charts.setOnLoadCallback(drawCurveTypes);
+		}
+		else {
+			$("#heightChart_div").hide();
+			$("#heightPrompt_div").show();
+		}
+		if (weightValues.length > 0) {
+		google.charts.setOnLoadCallback(drawCurveTypes2);
+		}
+		else {
+			$("#weightChart_div").hide();
+			$("#weightPrompt_div").show();
+		}
+	}
+
+	function drawCurveTypes() {
+	  var data = google.visualization.arrayToDataTable(heightArray);
+	  var options = {
+	    title: 'Infant Height over first two years',
+	    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+	    vAxis: {title: 'Height / Length (cm)',},
+	    interpolateNulls: true,
+	    animation: {"startup": true,},
+	    series: {
+	    0: {color: 'black'},
+	    1: {color: 'black'},
+	    2: {color: 'blue'}
+	    }
+	  };
+	  var chart = new google.visualization.LineChart(document.getElementById('heightChart_div'));
+	  chart.draw(data, options);
+	};
+
+	function drawCurveTypes2() {
+	  var data = google.visualization.arrayToDataTable(weightArray);
+	  var options = {
+	    title: 'Infant Weight over first two years',
+	    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+	    vAxis: {title: 'Weight (kg)',},
+	    interpolateNulls: true,
+	    animation: {startup: true,},
+	    series: {
+	    0: {color: 'black'},
+	    1: {color: 'black'},
+	    2: {color: 'blue'}
+	    }
+	  };
+	  var chart = new google.visualization.LineChart(document.getElementById('weightChart_div'));
+	  chart.draw(data, options);
+	}
+
 });
 
 var normalMaleHeight = [
@@ -65,75 +153,6 @@ var normalFemaleWeight = [
 [24,9.4,14.2,null],
 ]
 
-function altCombineValues(arr1,arr2,arr3,type){
-  var newArr = [];
-  for (i=0; i<arr1.length; i++) {
-    newArr.push([arr1[i],null,null,arr2[i]]);
-  }
-  for (i=0; i<arr3.length; i++) {
-    newArr.push(arr3[i]);
-  }
-  newArr.sort(sortFunction);
-  newArr.unshift(['Months','5th Percentile','95th Percentile',type]);
-  return newArr;
-}
-
-function sortFunction(a, b) {
-    if (a[0] === b[0]) {
-        return 0;
-    }
-    else {
-        return (a[0] < b[0]) ? -1 : 1;
-    }
-}
-
-google.charts.load('current', {'packages':['corechart', 'line']});
-google.charts.setOnLoadCallback(drawCurveTypes);
-google.charts.setOnLoadCallback(drawCurveTypes2);
-
-function drawCurveTypes() {
-  var data = google.visualization.arrayToDataTable(heightArray);
-
-  var options = {
-    title: 'Infant Height over first two years',
-    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
-    vAxis: {title: 'Height / Length (cm)',},
-    interpolateNulls: true,
-    animation: {
-      startup: true,
-    },
-    series: {
-    0: {color: 'black'},
-    1: {color: 'black'},
-    2: {color: 'blue'}
-    }
-  };
-
-  var chart = new google.visualization.LineChart(document.getElementById('heightChart_div'));
-  chart.draw(data, options);
-}
-
-function drawCurveTypes2() {
-  var data = google.visualization.arrayToDataTable(weightArray);
-
-  var options = {
-    title: 'Infant Weight over first two years',
-    hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
-    vAxis: {title: 'Weight (kg)',},
-    interpolateNulls: true,
-    animation: {
-      startup: true,
-    },
-    series: {
-    0: {color: 'black'},
-    1: {color: 'black'},
-    2: {color: 'blue'}
-    }
-  };
-
-  var chart = new google.visualization.LineChart(document.getElementById('weightChart_div'));
-  chart.draw(data, options);
-}
 
 // Script below is for the table of vaues for heights and weights
 //
@@ -144,15 +163,6 @@ function drawCurveTypes2() {
 //
 //
 //
-
-$(document).ready(function(){
-  $('.datepicker').datepicker();
- })
-
-$(document).ready(function(){
-	birthdate = new Date($("#birthdate").attr("title"));
-});
-
 var heightAdditions = [];
 var heightDeletions = [];
 var weightAdditions = [];
@@ -161,7 +171,6 @@ var editted = false;
 var counter = 0;
 chartAdditions = {"height": heightAdditions, "weight": weightAdditions};
 chartDeletions = {"height": heightDeletions, "weight": weightDeletions};
-
 
 function addHeight(element){
   counter ++;

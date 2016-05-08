@@ -11,6 +11,11 @@
 	    You have 3 recommended tasks
   </div>
 </div>
+<div id="page-wrapper">
+  <div class="container-fluid" id="dashboard-tile">
+    <%= render @children %>
+  </div>
+</div>
 <h2>Profile</h2>
 <p>Here's the information you've shared with us about yourself.</p>
 <table class="table table-hover">
@@ -29,12 +34,6 @@
     </tr>
   </tbody>
 </table>
-
-<div id="page-wrapper">
-  <div class="container-fluid" id="dashboard-tile">
-    <%= render @children %>
-  </div>
-</div>
 
 <!--Modal content-->
 <div id="profileModal" class="modal fade" role="dialogue">
