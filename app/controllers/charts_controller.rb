@@ -4,8 +4,8 @@ class ChartsController < ApplicationController
 
   def show
     @chart = Chart.find(params[:id])
-    @heights = @chart.heights
-    @weights = @chart.weights
+    @heights = @chart.heights.order(date: :asc)
+    @weights = @chart.weights.order(date: :asc)
   end
 
   def update
