@@ -18,6 +18,7 @@ class Child < ActiveRecord::Base
 	  self.build_chart
     end
 
+    # Ensures that the date of birth cannot be set in the future
     def date_of_birth_is_valid
       errors.add(:date_of_birth, 'date of birth must be today or earlier') if date_of_birth > Date.today
     end

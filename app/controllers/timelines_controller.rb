@@ -4,7 +4,7 @@ class TimelinesController < ApplicationController
 
   def show
     @timeline = Timeline.find(params[:id])
-    @vaccinations = @timeline.vaccinations
+    @vaccinations = @timeline.vaccinations.order(date: :asc)
     @allergies = @timeline.allergies
     @milestones = @timeline.milestones
     @date_of_birth = @timeline.child.date_of_birth
@@ -18,6 +18,7 @@ class TimelinesController < ApplicationController
   end
 
   private
+    # Calls helper functions necessary to update timeline data
     def updateTimeline(timeline,data)
       additions = data['additions']
       changes = data['changes']
@@ -32,6 +33,7 @@ class TimelinesController < ApplicationController
       deleteAllergies(deletions['allergy'],timeline)
     end
 
+    # Helper functions for manipulating timeline data
     def addVaccines(vaccines,timeline)
       vaccines.each do |vaccine|
         vaccination = timeline.vaccinations.build(name:vaccine[0],date:vaccine[1].to_datetime)
