@@ -1,6 +1,3 @@
-//Place all the behaviors and hooks related to the matching controller here.
-//All this logic will automatically be available in application.js.
-//You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready(function(){
   birthdate = new Date($("#birthdate").attr("title"));
   milestones = $.parseJSON($("#milestones").attr("title"));
@@ -16,8 +13,6 @@ var vaccineDeletions = [];
 var allergyChanges = [];
 var allergyAdditions = [];
 var allergyDeletions = [];
-var editted = false;
-var counter = 0;
 var milestones = [];
 additions = {"vaccine": vaccineAdditions, "allergy": allergyAdditions, "development": developmentAdditions, "feeding": feedingAdditions};
 changes = {"development": developmentChanges, "feeding": feedingChanges, "vaccine": vaccineChanges, "allergy": allergyChanges};
@@ -32,7 +27,7 @@ function editFunc(element,devnum){
 		element.parentElement.innerHTML = '\
       <span> \
   			<span class="input-group"> \
-  				<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+  				<input type="text" size="12" class="date-chooser input-sm form-control" value="' + currDateStr.toString() + '" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
   				<span class="input-group-addon"> \
   					<span class="fa fa-floppy-o" onclick="saveFunc(this,' + "'" + devnum + "'" + ')"></span> \
   				</span> \
@@ -42,7 +37,7 @@ function editFunc(element,devnum){
 		element.parentElement.innerHTML = '\
       <span class="form-inline"> \
   			<span class="input-group"> \
-  				<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+  				<input type="text" size="12" class="date-chooser input-sm form-control" value="' + currDateStr.toString() + '" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
   				<span class="input-group-addon"> \
   					<span class="fa fa-floppy-o" onclick="saveFunc(this,' + "'" + devnum + "'" + ')"></span> \
   				</span> \
@@ -119,7 +114,7 @@ function addVacc(element){
 		<td> \
 			<span class="form-inline"> \
 				<span class="input-group"> \
-					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="' + currDateStr.toString() + '" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
 					<span class="input-group-addon"> \
 						<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'" + newID + "'" + ')"></span> \
 					</span> \

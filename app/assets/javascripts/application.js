@@ -14,8 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-datepicker
-//= require turbolinks
 //= require_tree
+//= require turbolinks
 $(document).ready(function(){
   $('.datepicker').datepicker();
  })
+ var currentDate = new Date();
+ var currDateStr = currentDate.getMonth()+1 + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
+ var editted = false;
+ var counter = 0;

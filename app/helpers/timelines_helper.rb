@@ -32,7 +32,7 @@ module TimelinesHelper
       <td>#{category}</td>
       <td>#{milestone_text}</td>
       <td>–</td>
-      <td>Incomplete<i class=\"fa fa-pencil pull-right\" onclick=\"editFunc(this,'#{milestone_id}'\"></i></td>
+      <td>Incomplete<i class=\"fa fa-pencil pull-right\" onclick=\"editFunc(this,'#{milestone_id}')\"></i></td>
       </tr>"
     end
   end
