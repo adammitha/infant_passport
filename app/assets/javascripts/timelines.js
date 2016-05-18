@@ -1,7 +1,6 @@
 //Place all the behaviors and hooks related to the matching controller here.
 //All this logic will automatically be available in application.js.
 //You can use CoffeeScript in this file: http://coffeescript.org/
-
 $(document).ready(function(){
   birthdate = new Date($("#birthdate").attr("title"));
   milestones = $.parseJSON($("#milestones").attr("title"));
@@ -30,83 +29,119 @@ function isInArray(value, array) {
 
 function editFunc(element,devnum){
 	if (devnum.slice(0,3) == "dev" || devnum.slice(0,3) == "fed") {
-		element.parentElement.innerHTML = '<span> \
-											<span class="input-group"> \
-												<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
-												<span class="input-group-addon"> \
-													<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
-												</span> \
-											</span>\
-										</span> ';
+		element.parentElement.innerHTML = '\
+      <span> \
+  			<span class="input-group"> \
+  				<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+  				<span class="input-group-addon"> \
+  					<span class="fa fa-floppy-o" onclick="saveFunc(this,' + "'" + devnum + "'" + ')"></span> \
+  				</span> \
+  			</span>\
+  		</span> ';
 	} else {
-		element.parentElement.innerHTML = '<span class="form-inline"> \
-												<span class="input-group"> \
-													<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
-													<span class="input-group-addon"> \
-														<span id="' + devnum + '" class="fa fa-floppy-o" onclick="saveFunc(this,this.id)"></span> \
-													</span> \
-												</span> \
-												<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'" + devnum + "'" + ')">Delete</button> \
-											</span> ' ;
-	}
+		element.parentElement.innerHTML = '\
+      <span class="form-inline"> \
+  			<span class="input-group"> \
+  				<input type="text" size="12" class="date-chooser input-sm form-control" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+  				<span class="input-group-addon"> \
+  					<span class="fa fa-floppy-o" onclick="saveFunc(this,' + "'" + devnum + "'" + ')"></span> \
+  				</span> \
+  			</span> \
+  			<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'" + devnum + "'" + ')">Delete</button> \
+  		</span> ' ;
+  	}
 }
 
 function saveFunc(element,devnum){
 	var eventDate = new Date(String(element.parentElement.previousElementSibling.value));
 	var eventAge = (eventDate-birthdate)/2629929600;
+  var eventItem = [devnum,eventDate.toISOString()];
 	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months";
-	element.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '<i id="' + devnum + '" \
-																class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i>';
+	element.parentElement.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '\
+      <i class="fa fa-pencil pull-right" onclick="editFunc(this,' + "'" + devnum + "'" + ')"></i>';
 	if (devnum.slice(0,3) == "dev") {
 		if (isInArray(devnum,milestones)) {
-			developmentChanges.push([devnum,eventDate.toISOString()]);
+			if (findIndex(developmentChanges,devnum) > -1) {
+        var changedDevIndex = findIndex(developmentChanges,devnum);
+        developmentChanges[changedDevIndex] = eventItem;
+      } else {
+        developmentChanges.push(eventItem);
+      }
 		}	else {
-			developmentAdditions.push([devnum,eventDate.toISOString()]);
+      if (findIndex(developmentAdditions,devnum) > -1) {
+        var addedDevIndex = findIndex(developmentAdditions,devnum);
+        developmentAdditions[addedDevIndex] = eventItem;
+      } else {
+			  developmentAdditions.push(eventItem);
+      }
 		}
 	} else if (devnum.slice(0,3) == "fed") {
-		if (isInArray(devnum,milestones)) {
-			feedingChanges.push([devnum,eventDate.toISOString()]);
-		} else {
-			feedingAdditions.push([devnum,eventDate.toISOString()]);
+    if (isInArray(devnum,milestones)) {
+			if (findIndex(feedingChanges,devnum) > -1) {
+        var changedFeedIndex = findIndex(feedingChanges,devnum);
+        feedingChanges[changedFeedIndex] = eventItem;
+      } else {
+        feedingChanges.push(eventItem);
+      }
+		}	else {
+      if (findIndex(feedingAdditions,devnum) > -1) {
+        var addedFeedIndex = findIndex(feedingAdditions,devnum);
+        feedingAdditions[addedFeedIndex] = eventItem;
+      } else {
+			  feedingAdditions.push(eventItem);
+      }
 		}
 	} else if (devnum.slice(0,10) == "pushedVacc") {
-		var pushedVaccineIndex = findIndex(vaccineAdditions,devnum.slice(11)) 	;
+		var pushedVaccineIndex = findIndex(vaccineAdditions,devnum.slice(11));
 		vaccineAdditions[pushedVaccineIndex] = [devnum.slice(11),birthdate.toISOString()];
 	} else {
-	vaccineChanges.push([devnum,eventDate.toISOString()]);
+    if (findIndex(vaccineChanges,devnum) > -1) {
+      var changedVaccIndex = findIndex(vaccineChanges,devnum);
+      vaccineChanges[changedVaccIndex] = eventItem;
+    } else {
+      vaccineChanges.push([devnum,eventDate.toISOString()]);
+    }
 	}
 	changeSaveButton();
 }
 
 function addVacc(element){
-	element.parentElement.parentElement.innerHTML = '<td> \
-														<span class="input-group"> \
-															<input id="newVacc" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="Vaccine"/> \
-														</span> \
-													</td> \
-													<td> Let us handle the math </td> \
-													<td> \
-														<span class="form-inline"> \
-															<span class="input-group"> \
-																<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
-																<span class="input-group-addon"> \
-																	<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'newVacc'" + ')"></span> \
-																</span> \
-															</span> \
-															<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'newVacc'" + ')">Cancel</button> \
-														</span> \
-													</td>';
+  counter ++;
+  var newID = "newVacc" + counter;
+  document.getElementById("newVaccRow").id = newID;
+  document.getElementById(newID).innerHTML = '\
+    <td> \
+			<span class="input-group"> \
+				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="Vaccine"/> \
+			</span> \
+		</td> \
+		<td> Let us handle the math </td> \
+		<td> \
+			<span class="form-inline"> \
+				<span class="input-group"> \
+					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+					<span class="input-group-addon"> \
+						<span class="fa fa-floppy-o" onclick="saveVacc(this,' + "'" + newID + "'" + ')"></span> \
+					</span> \
+				</span> \
+				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteVacc(this,' + "'" + newID + "'" + ')">Cancel</button> \
+			</span> \
+		</td>';
 	}
 
 function saveVacc(element,vaccID){
-	var vaccName = String(document.getElementById(vaccID).value);
+	var vaccName = String(document.getElementById(vaccID + "Value").value);
 	var vaccDate = new Date(element.parentElement.previousElementSibling.value);
 	var vaccAge = (vaccDate - birthdate)/2629929600;
-	element.parentElement.parentElement.parentElement.parentElement.parentElement.innerHTML = '<td>' + vaccName + '</td> \
-																				<td>' + Math.round(vaccAge) + ' Months </td> \
-																				<td>' + vaccDate.toDateString().slice(4) + '<i id="pushedVacc' + vaccName + '" class="fa fa-pencil pull-right" onclick="editFunc(this,this.id)"></i></td>';
+  var pushedID = "pushedVacc" + vaccID.slice(7,vaccID.length);
+  document.getElementById(vaccID).id = pushedID;
+  document.getElementById(pushedID).innerHTML = '\
+    <td>' + vaccName + '</td> \
+		<td>' + Math.round(vaccAge) + ' Months </td> \
+		<td>' + vaccDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,' + "'" + pushedID + "'" + ')"></i></td>';
 	var bt = document.createElement("tr");
-	bt.innerHTML = 	'<td colspan="3"> \
+	bt.id = "newVaccRow";
+  bt.innerHTML = 	'<td colspan="3"> \
 						<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
 					</td>';
 	document.getElementById("vaccineBody").appendChild(bt);
@@ -115,10 +150,11 @@ function saveVacc(element,vaccID){
 }
 
 function deleteVacc(element,vaccID){
-	document.getElementById("vaccineBody").removeChild(element.parentElement.parentElement.parentElement);
-	if (vaccID == "newVacc") {
+	document.getElementById("vaccineBody").removeChild(document.getElementById(vaccID));
+	if (vaccID.slice(0,7) == "newVacc") {
 		var bt = document.createElement("tr");
-		bt.innerHTML = 	'<td colspan="3"> \
+		bt.id = "newVaccRow";
+    bt.innerHTML = 	'<td colspan="3"> \
 							<button type="button" class="btn btn-info" onclick="addVacc(this)">Add Vaccine</button> \
 						</td>';
 		document.getElementById("vaccineBody").appendChild(bt);
@@ -233,9 +269,11 @@ function updateFormData(){
 }
 
 function findIndex(array,firstItem){
-	for (i = 0; i < array.length; i++) {
+  var index = -1;
+  for (i = 0; i < array.length; i++) {
 		if (array[i][0] == firstItem) {
-			return i;
+			index = i;
 		}
 	}
+  return index;
 }

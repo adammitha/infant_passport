@@ -1,5 +1,5 @@
 // Script for charts
-$(document).ready(function(){
+$(document).on('page:change', function(){
 	birthdate = new Date($("#birthdate").attr("title"));
 	gender = $.parseJSON($("#gender").html());
 	heightDates = $.parseJSON($("#heightDates").html());
@@ -39,7 +39,9 @@ $(document).ready(function(){
 
 	google.charts.load('current', {'packages':['corechart', 'line']});
 	if (heightValues.length == 0 && weightValues.length == 0) {
-		$("bothPrompt_div").show();
+		$("#bothPrompt_div").show();
+		$("#heightChart_div").hide();
+		$("#weightChart_div").hide();
 	}
 	else {
 		if (heightValues.length > 0) {
@@ -93,7 +95,6 @@ $(document).ready(function(){
 	  var chart = new google.visualization.LineChart(document.getElementById('weightChart_div'));
 	  chart.draw(data, options);
 	}
-
 });
 
 var normalMaleHeight = [
@@ -153,11 +154,7 @@ var normalFemaleWeight = [
 [24,9.4,14.2,null],
 ]
 
-
 // Script below is for the table of vaues for heights and weights
-//
-//
-//
 //
 //
 //
@@ -177,23 +174,23 @@ function addHeight(element){
   var newID = "newHeight" + counter;
   document.getElementById("newHeightRow").id = newID;
   document.getElementById(newID).innerHTML = '\
-        <td> \
-    			<span class="input-group"> \
-    				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
-    			</span> \
-    		</td> \
-    		<td>"Let us do the math"</td> \
-    		<td> \
-    			<span class="form-inline"> \
-    				<span class="input-group"> \
-    					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
-    					<span class="input-group-addon"> \
-    						<span class="fa fa-floppy-o" onclick="saveHeight(this,' + "'" + newID + "'" + ')"></span> \
-    					</span> \
-    				</span> \
-    				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteHeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
-    			</span> \
-    		</td>';
+    <td> \
+			<span class="input-group"> \
+				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
+			</span> \
+		</td> \
+		<td>"Let us do the math"</td> \
+		<td> \
+			<span class="form-inline"> \
+				<span class="input-group"> \
+					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+					<span class="input-group-addon"> \
+						<span class="fa fa-floppy-o" onclick="saveHeight(this,' + "'" + newID + "'" + ')"></span> \
+					</span> \
+				</span> \
+				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteHeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
+			</span> \
+		</td>';
 	}
 
 function saveHeight(element,heightID){
@@ -238,23 +235,23 @@ function addWeight(element){
   var newID = "newWeight" + counter;
   document.getElementById("newWeightRow").id = newID;
   document.getElementById(newID).innerHTML = '\
-        <td> \
-    			<span class="input-group"> \
-    				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
-    			</span> \
-    		</td> \
-    		<td>"Let us do the math"</td> \
-    		<td> \
-    			<span class="form-inline"> \
-    				<span class="input-group"> \
-    					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
-    					<span class="input-group-addon"> \
-    						<span class="fa fa-floppy-o" onclick="saveWeight(this,' + "'" + newID + "'" + ')"></span> \
-    					</span> \
-    				</span> \
-    				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteWeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
-    			</span> \
-    		</td>';
+    <td> \
+			<span class="input-group"> \
+				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="kg"/> \
+			</span> \
+		</td> \
+		<td>"Let us do the math"</td> \
+		<td> \
+			<span class="form-inline"> \
+				<span class="input-group"> \
+					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+					<span class="input-group-addon"> \
+						<span class="fa fa-floppy-o" onclick="saveWeight(this,' + "'" + newID + "'" + ')"></span> \
+					</span> \
+				</span> \
+				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteWeight(this,' + "'" + newID + "'" + ')">Cancel</button> \
+			</span> \
+		</td>';
 	}
 
 function saveWeight(element,weightID){
