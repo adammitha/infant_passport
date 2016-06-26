@@ -5,6 +5,8 @@
 <div hidden id="heightValues"><%= @heights.map {|height| height.value} %></div>
 <div hidden id="weightDates"><%= @weights.map {|weight| (weight.date - weight.chart.child.date_of_birth)/2628288} %></div>
 <div hidden id="weightValues"><%= @weights.map {|weight| weight.value} %></div>
+<div hidden id="headCircDates"><%= @headCircs.map {|headCirc| (headCirc.date - headCirc.chart.child.date_of_birth)/2628288} %></div>
+<div hidden id="headCircValues"><%= @headCircs.map {|headCirc| headCirc.value} %></div>
 <div class="container-fluid">
   <h1>Growth Charts</h1>
   <div class="row">
@@ -15,6 +17,10 @@
     <div class="col-sm-6" id="weightChart_div" style="width: 900px; height: 500px;"></div>
     <div hidden class="alert alert-info" id="weightPrompt_div" style="clear: both;">
       <Strong>Tip! </Strong>Add weight measurements to see <%= @chart.child.first_name %>'s weight chart
+    </div>
+    <div class="col-sm-6" id="headCircChart_div" style="width: 900px; height: 500px;"></div>
+    <div hidden class="alert alert-info" id="headCircPrompt_div" style="clear: both;">
+      <Strong>Tip! </Strong>Add head circumference measurements to see <%= @chart.child.first_name %>'s chart
     </div>
     <div hidden class="alert alert-info" id="bothPrompt_div">
       <Strong>Tip! </Strong>Add measurements to see <%= @chart.child.first_name %>'s growth charts
@@ -58,6 +64,24 @@
 		  <tr id="newWeightRow">
 			<td colspan="3">
 				<button type="button" class="btn btn-info" onclick="addWeight(this)">Add Weight</button>
+			</td>
+		  </tr>
+		</tbody>
+</table>
+<h3>Head Circumference Growth</h3>
+<table class="table" summary="Tracking infant growth">
+		<thead>
+		  <tr>
+			<th>Head Circumference (cm)</th>
+			<th>Age</th>
+			<th>Date</th>
+		  </tr>
+		</thead>
+		<tbody id="headCircBody">
+		  <%= render @headCircs %>
+		  <tr id="newHeadCircRow">
+			<td colspan="3">
+				<button type="button" class="btn btn-info" onclick="addHeadCirc(this)">Add Head Circumference</button>
 			</td>
 		  </tr>
 		</tbody>

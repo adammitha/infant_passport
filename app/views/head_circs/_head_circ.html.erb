@@ -1,0 +1,5 @@
+<tr id="<%= head_circ.id %>">
+<td><%= head_circ.value %> cm</td>
+<td><%= age_at_vaccination(@chart.child.date_of_birth,head_circ.date) %> months</td>
+<td><%= head_circ.date.strftime("%B %e, %Y") %> <i class="fa fa-trash pull-right" onclick="deleteHeadCirc(this,'<%= head_circ.id %>')"></i></td>
+</tr>

@@ -6,6 +6,7 @@ class ChartsController < ApplicationController
     @chart = Chart.find(params[:id])
     @heights = @chart.heights.order(date: :asc)
     @weights = @chart.weights.order(date: :asc)
+    @headCircs = @chart.head_circs.order(date: :asc)
   end
 
   def update
@@ -20,8 +21,10 @@ class ChartsController < ApplicationController
       deletions = data['deletions']
       addHeights(additions['height'],chart)
       addWeights(additions['weight'],chart)
+      addHeadCircs(additions['headCirc'],chart)
       deleteHeights(deletions['height'],chart)
       deleteWeights(deletions['weight'],chart)
+      deleteHeadCircs(deletions['headCirc'],chart)
     end
 
     def addHeights(heights,chart)
@@ -38,6 +41,13 @@ class ChartsController < ApplicationController
       end
     end
 
+    def addHeadCircs(headCircs,chart)
+      headCircs.each do |headCirc|
+        headCirc = chart.head_circs.build(value:headCirc[0],date:headCirc[1].to_datetime)
+        headCirc.save
+      end
+    end
+
     def deleteHeights(heights,chart)
       heights.each do |height|
         Height.find(height.to_i).destroy
@@ -47,6 +57,12 @@ class ChartsController < ApplicationController
     def deleteWeights(weights,chart)
       weights.each do |weight|
         Weight.find(weight.to_i).destroy
+      end
+    end
+
+    def deleteHeadCircs(headCircs,chart)
+      headCircs.each do |headCirc|
+        HeadCirc.find(headCirc.to_i).destroy
       end
     end
 

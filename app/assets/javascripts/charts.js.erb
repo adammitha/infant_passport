@@ -10,18 +10,23 @@ $(document).on('page:change', function(){
 	heightValues = $.parseJSON($("#heightValues").html());
 	weightDates = $.parseJSON($("#weightDates").html());
   weightValues = $.parseJSON($("#weightValues").html());
+	headCircDates = $.parseJSON($("#headCircDates").html());
+	headCircValues = $.parseJSON($("#headCircValues").html());
 	if (gender == 1){
 		heightArray = altCombineValues(heightDates,heightValues,normalFemaleHeight,"Height");
 		weightArray = altCombineValues(weightDates,weightValues,normalFemaleWeight, "Weight");
+		headCircArray = altCombineValues(headCircDates,headCircValues,normalFemaleHeadCirc, "Head Circumference");
 	}
   else {
 		heightArray = altCombineValues(heightDates,heightValues,normalMaleHeight,"Height");
 		weightArray = altCombineValues(weightDates,weightValues,normalMaleWeight, "Weight");
+		headCircArray = altCombineValues(headCircDates,headCircValues,normalMaleHeadCirc, "Head Circumference");
 	}
-	if (heightValues.length == 0 && weightValues.length == 0) {
+	if (heightValues.length == 0 && weightValues.length == 0 && headCircValues.length ==0) {
 		$("#bothPrompt_div").show();
 		$("#heightChart_div").hide();
 		$("#weightChart_div").hide();
+		$("#headCircChart_div").hide();
 	}
 	else {
 		if (heightValues.length > 0) {
@@ -32,77 +37,62 @@ $(document).on('page:change', function(){
 			$("#heightPrompt_div").show();
 		}
 		if (weightValues.length > 0) {
-		google.charts.setOnLoadCallback(drawCurveTypes2);
+			google.charts.setOnLoadCallback(drawCurveTypes2);
 		}
 		else {
 			$("#weightChart_div").hide();
 			$("#weightPrompt_div").show();
 		}
+		if (headCircValues.length > 0) {
+			google.charts.setOnLoadCallback(drawCurveTypes3);
+		}
+		else{
+			$("#headCircChart_div").hide();
+			$("#headCircPrompt_div").show();
+		}
 	}
 });
 
 normalMaleHeight = [
-[0,46.8,53,null],
-[1,51.5,57.9,null],
-[2,55.1,61.7,null],
-[3,58.1,64.8,null],
-[4,60.5,67.3,null],
-[5,62.4,69.4,null],
-[6,64.1,71.1,null],
-[9,68.3,75.7,null],
-[12,71.8,79.7,null],
-[15,75,83.3,null],
-[18,77.8,86.7,null],
-[24,82.8,92.8,null]
+[0,46.8,53,null],[1,51.5,57.9,null],[2,55.1,61.7,null],[3,58.1,64.8,null],
+[4,60.5,67.3,null],[5,62.4,69.4,null],[6,64.1,71.1,null],[9,68.3,75.7,null],
+[12,71.8,79.7,null],[15,75,83.3,null],[18,77.8,86.7,null],[24,82.8,92.8,null]
 ];
 normalFemaleHeight = [
-[0,46.1,52.2,null],
-[1,50.5,56.9,null],
-[2,53.7,60.4,null],
-[3,56.3,63.3,null],
-[4,58.5,65.7,null],
-[5,60.4,67.7,null],
-[6,62,69.5,null],
-[9,66.2,74.1,null],
-[12,69.8,78.3,null],
-[15,73,82,null],
-[18,75.9,85.5,null],
-[24,81.1,91.7,null],
+[0,46.1,52.2,null],[1,50.5,56.9,null],[2,53.7,60.4,null],[3,56.3,63.3,null],
+[4,58.5,65.7,null],[5,60.4,67.7,null],[6,62,69.5,null],[9,66.2,74.1,null],
+[12,69.8,78.3,null],[15,73,82,null],[18,75.9,85.5,null],[24,81.1,91.7,null],
 ];
 normalMaleWeight = [
-[0,2.6,4.2,null],
-[1,3.6,5.5,null],
-[2,4.5,6.8,null],
-[3,5.2,7.7,null],
-[4,5.8,8.4,null],
-[5,6.2,9,null],
-[6,6.6,9.5,null],
-[9,7.4,10.6,null],
-[12,8.1,11.5,null],
-[15,8.6,12.3,null],
-[18,9.1,13.1,null],
-[24,10.1,14.7,null],
+[0,2.6,4.2,null],[1,3.6,5.5,null],[2,4.5,6.8,null],[3,5.2,7.7,null],
+[4,5.8,8.4,null],[5,6.2,9,null],[6,6.6,9.5,null],[9,7.4,10.6,null],
+[12,8.1,11.5,null],[15,8.6,12.3,null],[18,9.1,13.1,null],[24,10.1,14.7,null],
 ];
 normalFemaleWeight = [
-[0,2.5,4,null],
-[1,3.3,5.2,null],
-[2,4.1,6.3,null],
-[3,4.7,7.2,null],
-[4,5.2,7.9,null],
-[5,5.6,8.4,null],
-[6,6,8.9,null],
-[9,6.8,10.1,null],
-[12,7.3,11,null],
-[15,7.9,11.8,null],
-[18,8.4,12.6,null],
-[24,9.4,14.2,null],
-]
+[0,2.5,4,null],[1,3.3,5.2,null],[2,4.1,6.3,null],[3,4.7,7.2,null],
+[4,5.2,7.9,null],[5,5.6,8.4,null],[6,6,8.9,null],[9,6.8,10.1,null],
+[12,7.3,11,null],[15,7.9,11.8,null],[18,8.4,12.6,null],[24,9.4,14.2,null],
+];
+normalMaleHeadCirc = [
+	[0,32,36.8,null],[1,35.2,38.6,null],[2,36.8,41.2,null],
+[3,38.4,42.8,null],[4,39.6,43.8,null],[5,40.4,44.8,null],
+[6,41.2,45.6,null],[9,42.8,47.2,null],[12,43.6,48.4,null],
+[15,44,48.8,null],[18,44.8,49.8,null],[24,45.6,50.8,null],
+];
+normalFemaleHeadCirc = [
+	[0,31.6,36,null],[1,34.4,38.4,null],[2,36,40.4,null],
+[3,35.2,41.6,null],[4,38.2,42.8,null],[5,36,43.6,null],
+[6,38.6,44.6,null],[9,41.4,46.5,null],[12,42.4,47.2,null],
+[15,43,48.2,null],[18,43.6,48.8,null],[24,44.6,49.6,null],
+];
 heightAdditions = [];
 heightDeletions = [];
 weightAdditions = [];
 weightDeletions = [];
-chartAdditions = {"height": heightAdditions, "weight": weightAdditions};
-chartDeletions = {"height": heightDeletions, "weight": weightDeletions};
+headCircAdditions = [];
+headCircDeletions = [];
+chartAdditions = {"height": heightAdditions, "weight": weightAdditions, "headCirc": headCircAdditions};
+chartDeletions = {"height": heightDeletions, "weight": weightDeletions, "headCirc": headCircDeletions};
 
 function addHeight(element){
   counter ++;
@@ -111,7 +101,7 @@ function addHeight(element){
   document.getElementById(newID).innerHTML = '\
     <td> \
 			<span class="input-group"> \
-				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
+				<input id="' + newID + 'Value' + '" type="number" step="0.1" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
 			</span> \
 		</td> \
 		<td>"Let us do the math"</td> \
@@ -172,7 +162,7 @@ function addWeight(element){
   document.getElementById(newID).innerHTML = '\
     <td> \
 			<span class="input-group"> \
-				<input id="' + newID + 'Value' + '" type="text" size="15" class="input-sm form-control pull-left" value="" placeholder="kg"/> \
+				<input id="' + newID + 'Value' + '" type="number" step="0.01" size="15" class="input-sm form-control pull-left" value="" placeholder="kg"/> \
 			</span> \
 		</td> \
 		<td>"Let us do the math"</td> \
@@ -222,6 +212,67 @@ function deleteWeight(element,weightID){
 		weightAdditions.splice(pushedWeightIndex,1);
 	} else {
 		weightDeletions.push(weightID);
+		changeSaveButton();
+	}
+}
+
+function addHeadCirc(element){
+  counter ++;
+  var newID = "newHeadCirc" + counter;
+  document.getElementById("newHeadCircRow").id = newID;
+  document.getElementById(newID).innerHTML = '\
+    <td> \
+			<span class="input-group"> \
+				<input id="' + newID + 'Value' + '" type="number" step="0.1" size="15" class="input-sm form-control pull-left" value="" placeholder="cm"/> \
+			</span> \
+		</td> \
+		<td>"Let us do the math"</td> \
+		<td> \
+			<span class="form-inline"> \
+				<span class="input-group"> \
+					<input type="text" size="20" class="date-chooser input-sm form-control pull-left" value="' + currDateStr.toString() + '" placeholder="MM-DD-YYYY" data-provide="datepicker" readonly="readonly"/> \
+					<span class="input-group-addon"> \
+						<span class="fa fa-floppy-o" onclick="saveHeadCirc(this,' + "'" + newID + "'" + ')"></span> \
+					</span> \
+				</span> \
+				<button type="button" class="btn btn-danger btn-s pull-right" onclick="deleteHeadCirc(this,' + "'" + newID + "'" + ')">Cancel</button> \
+			</span> \
+		</td>';
+	}
+
+function saveHeadCirc(element,headCircID){
+	var headCircValue = String(document.getElementById(headCircID + "Value").value);
+	var headCircDate = new Date(element.parentElement.previousElementSibling.value);
+	var headCircAge = (headCircDate - birthdate)/2629929600;
+  var pushedID = "pushedHeadCirc" + headCircID.slice(9,headCircID.length);
+  document.getElementById(headCircID).id = pushedID;
+	document.getElementById(pushedID).innerHTML = '<td>' + headCircValue + " cm" + '</td> \
+																				<td>' + Math.round(headCircAge) + ' Months </td> \
+																				<td>' + headCircDate.toDateString().slice(4) + '<i class="fa fa-trash pull-right" onclick="deleteHeadCirc(this,' + "'" + pushedID + "'" + ')"></i></td>';
+	var bt = document.createElement("tr");
+	bt.id = "newHeadCircRow";
+  bt.innerHTML = 	'<td colspan="3"> \
+						<button type="button" class="btn btn-info" onclick="addHeadCirc(this)">Add Head Circumference</button> \
+					</td>';
+	document.getElementById("headCircBody").appendChild(bt);
+	headCircAdditions.push([headCircValue,headCircDate.toISOString()]);
+	changeSaveButton();
+}
+
+function deleteHeadCirc(element,headCircID){
+	document.getElementById("headCircBody").removeChild(document.getElementById(headCircID));
+	if (headCircID.slice(0,9) == "newHeadCirc") {
+		var bt = document.createElement("tr");
+    bt.id = "newHeadCircRow";
+		bt.innerHTML = 	'<td colspan="3"> \
+							<button type="button" class="btn btn-info" onclick="addHeadCirc(this)">Add Head Circumference</button> \
+						</td>';
+		document.getElementById("headCircBody").appendChild(bt);
+	} else if (headCircID.slice(0,12) == "pushedHeadCirc") {
+		var pushedHeadCircIndex = findIndex(headCircAdditions,headCircID.slice(13));
+		headCircAdditions.splice(pushedHeadCircIndex,1);
+	} else {
+		headCircDeletions.push(headCircID);
 		changeSaveButton();
 	}
 }
@@ -314,5 +365,30 @@ function drawCurveTypes2() {
 		}
 	};
 	var chart = new google.visualization.LineChart(document.getElementById('weightChart_div'));
+	chart.draw(data, options);
+}
+
+function drawCurveTypes3() {
+	var data = google.visualization.arrayToDataTable(headCircArray);
+	var options = {
+		title: 'Infant Head Circumference over first two years',
+		hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+		vAxis: {
+			title: 'Head Circumference (cm)',
+			viewWindowMode: 'maximized'
+		},
+		interpolateNulls: true,
+		animation: {
+			startup: true,
+			duration: 1500,
+			easing: 'out'
+		},
+		series: {
+		0: {color: 'black'},
+		1: {color: 'black'},
+		2: {color: 'blue'}
+		}
+	};
+	var chart = new google.visualization.LineChart(document.getElementById('headCircChart_div'));
 	chart.draw(data, options);
 }
