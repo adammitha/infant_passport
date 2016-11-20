@@ -1,13 +1,12 @@
 // Script for charts
 $(document).ready(function() {
 	google.charts.load('current', {'packages':['corechart', 'line']});
-	alert("Checkpoint 1");
 })
 
 $(document).on('page:change', function(){
+	alert("Checkpoint 1")
 	birthdate = new Date($("#birthdate").attr("title"));
 	gender = $.parseJSON($("#gender").html());
-	alert(gender);
 	heightDates = $.parseJSON($("#heightDates").html());
 	heightValues = $.parseJSON($("#heightValues").html());
 	weightDates = $.parseJSON($("#weightDates").html());
