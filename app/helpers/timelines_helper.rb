@@ -1,5 +1,5 @@
 module TimelinesHelper
-  def render_feeding_milestone(milestone_id,milestone_text,placeholder_age)
+  def render_feeding_milestone(milestone_id,milestone_text)
     the_milestone = @milestones.find_by milestone_id:milestone_id
     if the_milestone
       date = the_milestone.date.strftime("%B %e, %Y")
@@ -11,7 +11,7 @@ module TimelinesHelper
     else
       "<tr id=\"#{milestone_id}\">
       <td>#{milestone_text}</td>
-      <td>#{placeholder_age}</td>
+      <td>-</td>
       <td>Incomplete<i class=\"fa fa-pencil pull-right\" onclick=\"editFunc(this,'#{milestone_id}')\"></i></td>
       </tr>"
     end
