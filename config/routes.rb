@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'growth_and_development' => 'static_pages#growth_and_development'
   get 'nutrition' => 'static_pages#nutrition'
   get 'vaccinations' => 'static_pages#vaccinations'
+  get 'terms_of_service' => 'static_pages#terms_of_service'
 
   get 'signup' => 'parents#new'
 
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   resources :children, only: [:create, :update, :destroy]
 
   resources :timelines, only: [:show, :update]
-  
+
   resources :charts, only: [:show, :update]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

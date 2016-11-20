@@ -21,6 +21,10 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+      <p><strong>By clicking "Create my account" I agree that:</strong></p>
+      <ul>
+        <li>I have read and accepted the <strong> <%= link_to "Terms of Service", terms_of_service_path %> </strong></li>
+      </ul>
       <%= f.submit "Create my account", class: "btn btn-default" %>
     <% end %>
   </div>
