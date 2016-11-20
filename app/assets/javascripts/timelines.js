@@ -51,8 +51,12 @@ function saveFunc(element,devnum){
 	var eventDate = new Date(String(element.parentElement.previousElementSibling.value));
 	var eventAge = (eventDate-birthdate)/2629929600;
   var eventItem = [devnum,eventDate.toISOString()];
+  var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+  var curr_date = eventDate.getDate();
+  var curr_month = eventDate.getMonth();
+  var curr_year = eventDate.getFullYear();
 	element.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML = Math.round(eventAge) + " Months";
-	element.parentElement.parentElement.parentElement.parentElement.innerHTML = eventDate.toDateString().slice(4) + '\
+	element.parentElement.parentElement.parentElement.parentElement.innerHTML = m_names[curr_month] + ' ' + curr_date + ', ' + curr_year + '\
       <i class="fa fa-pencil pull-right" onclick="editFunc(this,' + "'" + devnum + "'" + ')"></i>';
 	if (devnum.slice(0,3) == "dev") {
 		if (isInArray(devnum,milestones)) {
@@ -129,11 +133,15 @@ function saveVacc(element,vaccID){
 	var vaccDate = new Date(element.parentElement.previousElementSibling.value);
 	var vaccAge = (vaccDate - birthdate)/2629929600;
   var pushedID = "pushedVacc" + vaccID.slice(7,vaccID.length);
+  var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+  var curr_date = vaccDate.getDate();
+  var curr_month = vaccDate.getMonth();
+  var curr_year = vaccDate.getFullYear();
   document.getElementById(vaccID).id = pushedID;
   document.getElementById(pushedID).innerHTML = '\
     <td>' + vaccName + '</td> \
 		<td>' + Math.round(vaccAge) + ' Months </td> \
-		<td>' + vaccDate.toDateString().slice(4) + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,' + "'" + pushedID + "'" + ')"></i></td>';
+		<td>' + m_names[curr_month] + ' ' + curr_date + ', ' + curr_year + '<i class="fa fa-pencil pull-right" onclick="editFunc(this,' + "'" + pushedID + "'" + ')"></i></td>';
 	var bt = document.createElement("tr");
 	bt.id = "newVaccRow";
   bt.innerHTML = 	'<td colspan="3"> \
