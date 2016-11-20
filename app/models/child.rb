@@ -15,7 +15,7 @@ class Child < ActiveRecord::Base
     # Creates timeline for child when child is added
     def create_dependents
       self.build_timeline
-	  self.build_chart
+	    self.build_chart
     end
 
     # Ensures that the date of birth cannot be set in the future
