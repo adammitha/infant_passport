@@ -1,18 +1,20 @@
 // Script for charts
 $(document).ready(function() {
 	google.charts.load('current', {'packages':['corechart', 'line']});
+	alert("Checkpoint 1");
 })
 
 $(document).on('page:change', function(){
 	birthdate = new Date($("#birthdate").attr("title"));
 	gender = $.parseJSON($("#gender").html());
+	alert(gender);
 	heightDates = $.parseJSON($("#heightDates").html());
 	heightValues = $.parseJSON($("#heightValues").html());
 	weightDates = $.parseJSON($("#weightDates").html());
   weightValues = $.parseJSON($("#weightValues").html());
 	headCircDates = $.parseJSON($("#headCircDates").html());
 	headCircValues = $.parseJSON($("#headCircValues").html());
-	if (gender == 1){
+	if (gender){
 		heightArray = altCombineValues(heightDates,heightValues,normalFemaleHeight,"Height");
 		weightArray = altCombineValues(weightDates,weightValues,normalFemaleWeight, "Weight");
 		headCircArray = altCombineValues(headCircDates,headCircValues,normalFemaleHeadCirc, "Head Circumference");
@@ -23,6 +25,7 @@ $(document).on('page:change', function(){
 		headCircArray = altCombineValues(headCircDates,headCircValues,normalMaleHeadCirc, "Head Circumference");
 	}
 	if (heightValues.length == 0 && weightValues.length == 0 && headCircValues.length ==0) {
+		alert("Checkpoint 2");
 		$("#bothPrompt_div").show();
 		$("#heightChart_div").hide();
 		$("#weightChart_div").hide();
@@ -341,6 +344,8 @@ function drawCurveTypes() {
 	};
 	var chart = new google.visualization.LineChart(document.getElementById('heightChart_div'));
 	chart.draw(data, options);
+	alert("Check drawing");
+
 };
 
 function drawCurveTypes2() {
